@@ -41,8 +41,6 @@ namespace LethalWorkingConditions.Patches
         }
 
 
-
-
         /*[HarmonyPatch("Start")]
         [HarmonyPrefix]
         static void AddScrapValueMultiplier(ref float ___scrapValueMultiplier)

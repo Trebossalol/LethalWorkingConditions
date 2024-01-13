@@ -118,9 +118,7 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enemys\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Remove="mbundle" />
     <None Include="todo.md" />

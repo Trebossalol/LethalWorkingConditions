@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LethalWorkingConditions.Helpers
 {
+    // May gets removed in future
     // Needs to inherit from MonoBehaviour because "StartCoroutine" method is needed
     internal class CoroutineHelper : MonoBehaviour
     {

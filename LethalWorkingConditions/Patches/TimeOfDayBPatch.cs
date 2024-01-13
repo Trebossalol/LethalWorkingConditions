@@ -8,7 +8,7 @@ namespace LethalWorkingConditions.Patches
         // Needs fix, because when the time is too slow, no enemies can spawn
         /*[HarmonyPatch("Awake")]
         [HarmonyPostfix]
-        static void FasterDaytime(ref float ___globalTimeSpeedMultiplier)
+        static void TimeOfDayBPatch_Awake_Postfix(ref float ___globalTimeSpeedMultiplier)
         {
             ___globalTimeSpeedMultiplier = 0.75f;
         }*/

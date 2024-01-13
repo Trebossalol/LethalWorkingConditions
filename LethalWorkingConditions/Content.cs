@@ -59,10 +59,10 @@ namespace LethalWorkingConditions
             LethalWorkingConditions.harmony.PatchAll(typeof(SprayPaintItemBPatch));
             LethalWorkingConditions.harmony.PatchAll(typeof(TimeOfDayBPatch));
 
-            /// Development: Unlimited sprint
+            /// Dev only: Unlimited sprint
             /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));
 
-            LethalWorkingConditions.mls.LogInfo("Patches loaded");
+            LethalWorkingConditions.mls.LogInfo("LWC Patches loaded");
         }
 
         private static void RegisterCustomScrapItems()
@@ -126,7 +126,7 @@ namespace LethalWorkingConditions
 
             RegisterCustomScrapItems();
 
-            // loop through prefabs - idk
+            // loop through prefabs
             foreach (var prefabSet in Prefabs)
             {
                 var prefab = prefabSet.Value;

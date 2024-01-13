@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace LethalWorkingConditions.MonoBehaviours
 {
+    // May gets removed in future
     public class CustomNetworkTransform : NetworkBehaviour
     {
         public bool syncPosition = true;

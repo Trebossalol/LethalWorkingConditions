@@ -20,17 +20,14 @@ namespace LethalWorkingConditions
 
         void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) Instance = this;
 
             // Assign Logger Instance
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
             Content.Load();
 
-            mls.LogInfo("Lethal Working Conditions loaded!");
+            mls.LogInfo("LWC loaded");
         }
     }
 }

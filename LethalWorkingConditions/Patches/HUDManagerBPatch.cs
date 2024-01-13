@@ -24,7 +24,7 @@ namespace LethalWorkingConditions.Patches
                 return spawnCommand.ExecuteCommand();
             }
 
-            // If no command is called, handle original logic
+            // If text started with prefix but does not match a command, handle orgiginal logic
             return true;            
         }
     }

@@ -61,7 +61,7 @@ namespace LethalWorkingConditions.Classes
             
             LethalWorkingConditions.mls.LogInfo($"LightAnomalyEventManager::Tick() - {randomInt}");
 
-            // roundManager.FlickerLights(true, true);
+            roundManager.FlickerLights(true, true);
 
             uncommonLightAnomaly.InitalizeVariables();
             uncommonLightAnomaly.Start();

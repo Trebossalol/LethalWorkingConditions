@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace LethalWorkingConditions.MonoBehaviours
 {
+    // May gets removed in future
     internal class LethalGigaAI : CrawlerAI
     {
        

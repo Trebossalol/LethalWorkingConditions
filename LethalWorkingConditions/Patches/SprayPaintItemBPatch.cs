@@ -12,7 +12,7 @@ namespace LethalWorkingConditions.Patches
     {
         [HarmonyPatch("Start")]
         [HarmonyPrefix]
-        static void IncraseCanTankVolume(ref float ___sprayCanTank)
+        static void SprayPaintItemBPatch_Start_Prefix(ref float ___sprayCanTank)
         {
             ___sprayCanTank = 4f;
         }
