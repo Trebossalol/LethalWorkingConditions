@@ -12,16 +12,10 @@ namespace LethalWorkingConditions.Patches
     {
         [HarmonyPatch("OnTriggerStay")]
         [HarmonyPrefix]
-        static void MoreHinderance(ref float ___movementHinderance)
+        static void QuicksandTriggerBPatch_OnTriggerStay_Prefix(ref float ___movementHinderance, ref float ___sinkingSpeedMultiplier)
         {
-            ___movementHinderance = 6f;
-        }
-
-        [HarmonyPatch("OnTriggerStay")]
-        [HarmonyPrefix]
-        static void MoreSinkingSpeed(ref float ___sinkingSpeedMultiplier)
-        {
-            ___sinkingSpeedMultiplier = 0.8f;
+            ___movementHinderance = 3f;
+            ___sinkingSpeedMultiplier = 0.5f;
         }
     }
 }

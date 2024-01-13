@@ -1,20 +1,15 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LethalWorkingConditions.Patches
 {
     [HarmonyPatch(typeof(BridgeTrigger))]
     internal class BridgeTriggerBPatch
     {
-        [HarmonyPatch("Update")]
+        [HarmonyPatch("OnEnable")]
         [HarmonyPrefix]
-        static void MakeBridgeMoreInstable(ref float ___bridgeDurability)
+        static void BridgeTriggerBPatch_OnEnable_Prefix(ref float ___bridgeDurability)
         {
-            ___bridgeDurability = 0.4f;
+            ___bridgeDurability = 0.6f;
         }
     }
 }
