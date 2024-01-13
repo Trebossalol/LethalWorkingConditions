@@ -16,10 +16,9 @@ The company said they wanna improve the working conditions for their employees. 
 - SprayPaintItem
     - Increases the can volume of spray paints
 
-- New chat commands
-- All chat commands have `/command_name help` parameter to get a command description
-    - Added `/spawn <enemy_name> [amount]` command (host only)
-    - Allows enemy spawning inside the building
+- Chat commands
+    - Spawn enemies `/spawn <enemy_name> [amount]` (host only)
+
 
 
 ## Installation
