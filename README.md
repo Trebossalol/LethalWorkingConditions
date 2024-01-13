@@ -4,27 +4,22 @@ The company said they wanna improve the working conditions for their employees. 
 ## Features
 
 - BridgeTrigger
-    - Makes the bridge more instable.
-
-- Landmine
-    - Increase the range of the mines.
+    - Makes the bridge more instable
 
 - Quicksand
-    - Quicksand will be more dangerous.
+    - Quicksand will be more dangerous
 
 - RoundManager
-    - Incrases the value of scap and map size slightly.
+    - Increases the map size slightly
     - Adds light flickering every 30 seconds
 
 - SprayPaintItem
-    - Increases the can volume of spray paints.
+    - Increases the can volume of spray paints
 
-- TimeOfDay
-    - Makes the daytime go slower.
-
-- Turret
-    - They will be quicker.
-
+- New chat commands
+- All chat commands have `/command_name help` parameter to get a command description
+    - Added `/spawn <enemy_name> [amount]` command (host only)
+    - Allows enemy spawning inside the building
 
 
 ## Installation

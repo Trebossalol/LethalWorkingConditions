@@ -98,9 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AssetBundleStuff.cs" />
+    <Compile Include="Classes\ChatCommand\ChatCommand.cs" />
+    <Compile Include="Classes\ChatCommand\Commands\SpawnCommand.cs" />
     <Compile Include="Classes\FlickerLightsBClass.cs" />
     <Compile Include="Classes\LightAnomaly\BaseLightAnomaly.cs" />
     <Compile Include="Classes\LightAnomaly\UncommonLightAnomaly.cs" />
+    <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Helpers\CoroutineHelper.cs" />
     <Compile Include="MonoBehaviours\CustomNetworkTransform.cs" />

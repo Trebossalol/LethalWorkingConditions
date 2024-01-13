@@ -1,16 +1,10 @@
-﻿using GameNetcodeStuff;
-using HarmonyLib;
-using LethalLib;
-using LethalLib.Extras;
+﻿using LethalLib;
 using LethalLib.Modules;
 using LethalWorkingConditions.MonoBehaviours;
 using LethalWorkingConditions.Patches;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Reflection.Emit;
-using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
 using static LethalWorkingConditions.AssetBundleStuff;
@@ -68,7 +62,7 @@ namespace LethalWorkingConditions
             /// Development: Unlimited sprint
             /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));
 
-            LethalWorkingConditions.mls.LogInfo("Loaded Patches");
+            LethalWorkingConditions.mls.LogInfo("Patches loaded");
         }
 
         private static void RegisterCustomScrapItems()
@@ -154,7 +148,7 @@ namespace LethalWorkingConditions
                 }
             }
 
-            LethalWorkingConditions.mls.LogInfo("All Content was loaded");
+            LethalWorkingConditions.mls.LogInfo("Mod content loaded");
         }
     }
 }

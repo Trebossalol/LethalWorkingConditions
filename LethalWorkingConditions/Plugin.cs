@@ -10,7 +10,7 @@ namespace LethalWorkingConditions
     {
         public const string modGUID = "Trebossa.LethalWorkingConditions";
         public const string modName = "Lethal Working Conditions";
-        public const string modVersion = "0.1.2";
+        public const string modVersion = "0.1.3";
 
         public static readonly Harmony harmony = new Harmony(modGUID);
         
