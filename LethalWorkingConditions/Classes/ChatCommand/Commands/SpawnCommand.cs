@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using LethalWorkingConditions.Patches;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LethalWorkingConditions.Classes.ChatCommand.Commands
@@ -11,7 +12,8 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
         private string spawnEnemyName = "";
         private int spawnEnemyAmount = 1;
 
-        private string creaturesAvailableString = RoundManagerBPatch.currentLevel.Enemies.Select(e => e.enemyType.enemyName).ToArray().Join();
+        private string creaturesAvailableString = 
+            $"{string.Join("|", RoundManagerBPatch.currentLevel.Enemies.Select(e => e.enemyType.enemyName).ToArray())}|{string.Join("|", RoundManagerBPatch.currentLevel.OutsideEnemies.Select(e => e.enemyType.enemyName).ToArray())}";
         private bool enemyFound = false;
         private string enemyName;
 
@@ -19,14 +21,9 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
         {
         }
 
-        protected override string GetCommandHelp()
-        {
-            return $"Creatures available: {creaturesAvailableString}";
-        }
-
         protected override string GetFullCommandSyntax()
         {
-            return $"{base.GetFullCommandSyntax()} <creature_name> [amount=1]";
+            return $"{base.GetFullCommandSyntax()} <{creaturesAvailableString}> [amount=1]";
         }
 
         protected override bool CanBeCalled()
@@ -47,17 +44,27 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
             spawnEnemyName = parameters[0].ToLower();
 
             // If there are more optional parameters, parse them
-            if (parameters.Length > 1)
-            {
-                Int32.TryParse(parameters[1], out spawnEnemyAmount);
-            }
+            if (parameters.Length > 1) Int32.TryParse(parameters[1], out spawnEnemyAmount);
 
             return true;
         }
 
         protected override void Execute()
         {
-            foreach (var enemy in RoundManagerBPatch.currentLevel.Enemies)
+            var outsideEnemies = RoundManagerBPatch.currentLevel.OutsideEnemies;
+            var insideEnemies = RoundManagerBPatch.currentLevel.Enemies;
+
+            // Enemies
+            SpawnEnemies(outsideEnemies, false);
+            SpawnEnemies(insideEnemies, true);
+            
+            // If no enemy was found by search
+            if (!enemyFound) IssueCommandSyntax();
+        }
+
+        private void SpawnEnemies(List<SpawnableEnemyWithRarity> list, bool inside)
+        {
+            foreach (var enemy in list)
             {
                 // If an enemy was found, skip loop to prevent spawning multiple different creatures
                 if (enemyFound) continue;
@@ -70,7 +77,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
                     try
                     {
-                        EnemySpawner.SpawnEnemy(enemy, spawnEnemyAmount);
+                        EnemySpawner.SpawnEnemy(enemy, spawnEnemyAmount, inside);
                         IssueNotification($"Spawned {spawnEnemyAmount} {enemyName}");
                     }
                     catch
@@ -79,9 +86,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
                     }
                 }
             }
-
-            // If no enemy was found by search
-            if (!enemyFound) IssueCommandHelp();
         }
     }
 }

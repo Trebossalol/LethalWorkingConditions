@@ -25,11 +25,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 
         protected string noticeBody;
 
-        protected virtual string GetCommandHelp()
-        {
-            return "No help defined";
-        }
-
         protected virtual string GetFullCommandSyntax()
         {
             return $"{ChatCommand.CommandPrefix}{commandName}";
@@ -40,7 +35,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         protected abstract bool ParseParameters();
 
         protected abstract void Execute();
-
 
         public ChatCommand(string commandname, ref HUDManager hudManager) 
         {
@@ -57,11 +51,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             LethalWorkingConditions.mls.LogInfo($"{noticeTitle}: {message}");
         }
 
-        protected void IssueCommandHelp()
-        {
-            IssueNotification(GetCommandHelp());
-        }
-
         protected void IssueCommandSyntax()
         {
             IssueNotification($"Wrong Syntax: {GetFullCommandSyntax()}");
@@ -73,15 +62,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             bool canBeCalled = CanBeCalled();
             // If prequisites are not met, continue with the original code
             if (!canBeCalled) return true;
-
-            // Check if command is suffixed by "help"
-            if (parameters.Length > 0 && parameters[0].ToLower() == "help")
-            {
-                // prefix + command name + "help" will issue the command help
-                IssueCommandHelp();
-                // Do not continue with the orignal code
-                return false;
-            }
 
             // Try to parse params
             bool paramsValid = ParseParameters();
