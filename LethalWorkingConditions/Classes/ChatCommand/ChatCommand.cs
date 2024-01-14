@@ -23,8 +23,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             }
         }
 
-        protected string noticeBody;
-
         protected virtual string GetFullCommandSyntax()
         {
             return $"{ChatCommand.CommandPrefix}{commandName}";
@@ -45,9 +43,9 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             parameters = text.Split(' ').Skip(1).ToArray();
         }
 
-        protected void IssueNotification(string message)
+        protected void IssueNotification(string message, bool isWarning = false)
         {
-            HUDManager.Instance.DisplayTip(noticeTitle, message);
+            HUDManager.Instance.DisplayTip(noticeTitle, message, isWarning);
             LethalWorkingConditions.mls.LogInfo($"{noticeTitle}: {message}");
         }
 

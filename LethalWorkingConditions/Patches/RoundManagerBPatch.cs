@@ -1,11 +1,12 @@
 ﻿using HarmonyLib;
+using LethalWorkingConditions.Classes.MonsterEvent;
+using LethalWorkingConditions.Classes.MonsterEvent.Events;
 
 namespace LethalWorkingConditions.Patches
 {
     [HarmonyPatch(typeof(RoundManager))]
     internal class RoundManagerBPatch
     {
-
         internal static bool isHost = false;
         internal static RoundManager currentRound;
         internal static SelectableLevel currentLevel;
@@ -38,6 +39,8 @@ namespace LethalWorkingConditions.Patches
         static void RoundManagerBPatch_LoadNewLevel_Prefix(ref SelectableLevel newLevel)
         {
             currentRound = RoundManager.Instance;
+
+            if (MonsterEventManager.activeEvent == null) MonsterEventManager.GenerateNewEvent();
         }
 
 
