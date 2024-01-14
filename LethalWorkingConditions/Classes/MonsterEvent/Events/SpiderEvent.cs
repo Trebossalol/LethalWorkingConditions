@@ -24,12 +24,12 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
             multiplier = 1;
         }
 
-        protected override void On_LoadNewLevel()
+        public override void On_LoadNewLevel()
         {
             EnemySpawner.SpawnEnemy(spiderEnemy, initialSpawnAmount, true);
         }
 
-        protected override void On_PlotOutEnemiesForNextHour()
+        public override void On_PlotOutEnemiesForNextHour()
         {
             int amount = 2 * multiplier;
             multiplier *= 2;

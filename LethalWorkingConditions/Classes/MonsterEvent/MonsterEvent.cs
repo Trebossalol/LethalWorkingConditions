@@ -35,17 +35,17 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
             LethalWorkingConditions.mls.LogInfo($"{noticeTitle}: {text}");
         }
 
-        protected virtual void On_LoadNewLevel()
+        public virtual void On_LoadNewLevel()
         {
 
         }
 
-        protected virtual void On_Update() 
+        public virtual void On_Update() 
         {
         
         }
 
-        protected virtual void On_PlotOutEnemiesForNextHour()
+        public virtual void On_PlotOutEnemiesForNextHour()
         {
 
         }

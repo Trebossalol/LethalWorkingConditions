@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using LethalWorkingConditions.Classes.MonsterEvent;
-using LethalWorkingConditions.Classes.MonsterEvent.Events;
 
 namespace LethalWorkingConditions.Patches
 {
@@ -21,7 +20,7 @@ namespace LethalWorkingConditions.Patches
 
             isHost = RoundManager.Instance.NetworkManager.IsHost;
 
-            LethalWorkingConditions.mls.LogInfo("IsHost: " + isHost);
+            MonsterEventManager.GenerateNewEvent();
         }
 
 
@@ -33,6 +32,19 @@ namespace LethalWorkingConditions.Patches
             currentLevelVents = ___allEnemyVents;
         }
 
+        [HarmonyPatch("PlotOutEnemiesForNextHour")]
+        [HarmonyPrefix]
+        static void RoundManagerBPatch_PlotOutEnemiesForNextHour()
+        {
+            MonsterEventManager.activeEvent?.On_PlotOutEnemiesForNextHour();
+        }
+
+        [HarmonyPatch("Update")]
+        [HarmonyPrefix]
+        static void RoundManagerBPatch_Update_Prefix()
+        {
+            MonsterEventManager.activeEvent?.On_Update();
+        }
 
         [HarmonyPatch("LoadNewLevel")]
         [HarmonyPrefix]
@@ -40,7 +52,7 @@ namespace LethalWorkingConditions.Patches
         {
             currentRound = RoundManager.Instance;
 
-            if (MonsterEventManager.activeEvent == null) MonsterEventManager.GenerateNewEvent();
+            MonsterEventManager.activeEvent?.On_LoadNewLevel();
         }
 
 
