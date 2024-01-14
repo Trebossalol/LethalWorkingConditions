@@ -4,3 +4,5 @@ obj
 *.zip
 .git
 .vs
+.DS_Store
+./LethalWorkingCOnditions.dll
