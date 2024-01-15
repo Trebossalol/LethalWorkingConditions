@@ -17,6 +17,8 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
 
         internal static MonsterEvent activeEvent = null;
 
+        internal static Random randomGenerator = new Random();
+
         internal static void IssueNotification(string title, string message)
         {
             if (activeEvent == null) return;
@@ -26,10 +28,28 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
             logger.LogInfo($"{title}: {message}");
         }
 
+        private static MonsterEvent GetRandomEvent()
+        {
+            MonsterEvent monsterEvent;
+
+            int rng = randomGenerator.Next(0, 100);
+
+            if (rng >= 50)
+            {
+                monsterEvent = new SpiderEvent();
+            }
+            else
+            {
+                monsterEvent = new HoardingBugEvent();
+            }
+
+            return monsterEvent;
+        }
+
+
         internal static void GenerateNewEvent()
         {
-            // Calculate chances
-            activeEvent = new SpiderEvent();
+            activeEvent = GetRandomEvent();
 
             logger.LogInfo("GenerateNewEvent()");
 

@@ -30,13 +30,8 @@ namespace LethalWorkingConditions.Patches
         {
             currentLevel = ___currentLevel;
             currentLevelVents = ___allEnemyVents;
-        }
 
-        [HarmonyPatch("PlotOutEnemiesForNextHour")]
-        [HarmonyPrefix]
-        static void RoundManagerBPatch_PlotOutEnemiesForNextHour()
-        {
-            MonsterEventManager.activeEvent?.Bind_On_PlotOutEnemiesForNextHour();
+            MonsterEventManager.activeEvent?.Bind_AdvanceHourAndSpawnNewBatchOfEnemies();
         }
 
         [HarmonyPatch("LoadNewLevel")]

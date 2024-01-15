@@ -23,7 +23,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
             EnemySpawner.SpawnEnemy(spiderEnemy, initialSpawnAmount, true);
         }
 
-        protected override void On_PlotOutEnemiesForNextHour()
+        protected override void On_AdvanceHourAndSpawnNewBatchOfEnemies()
         {
             int amount = 2 * multiplier;
             multiplier *= 2;

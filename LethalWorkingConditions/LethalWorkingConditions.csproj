@@ -103,6 +103,7 @@
     <Compile Include="Classes\FlickerLightsBClass.cs" />
     <Compile Include="Classes\LightAnomaly\BaseLightAnomaly.cs" />
     <Compile Include="Classes\LightAnomaly\UncommonLightAnomaly.cs" />
+    <Compile Include="Classes\MonsterEvent\Events\HoardingBugEvent.cs" />
     <Compile Include="Classes\MonsterEvent\Events\SpiderEvent.cs" />
     <Compile Include="Classes\MonsterEvent\MonsterEvent.cs" />
     <Compile Include="Classes\MonsterEvent\MonsterEventManager.cs" />

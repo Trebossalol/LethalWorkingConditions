@@ -22,7 +22,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
 
         protected abstract void On_LoadNewLevel();
 
-        protected abstract void On_PlotOutEnemiesForNextHour();
+        protected abstract void On_AdvanceHourAndSpawnNewBatchOfEnemies();
 
         public MonsterEvent(string eventName) 
         {
@@ -44,10 +44,10 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
             On_LoadNewLevel();
         }
 
-        public void Bind_On_PlotOutEnemiesForNextHour()
+        public void Bind_AdvanceHourAndSpawnNewBatchOfEnemies()
         {
             logger.LogInfo("On_PlotOutEnemiesForNextHour()");
-            On_PlotOutEnemiesForNextHour();
+            On_AdvanceHourAndSpawnNewBatchOfEnemies();
         }
     }
 }
