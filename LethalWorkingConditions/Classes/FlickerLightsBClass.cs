@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using LethalWorkingConditions.Classes.LightAnomaly;
+using LethalWorkingConditions.Helpers;
 using System.Threading;
 
 namespace LethalWorkingConditions.Classes
@@ -7,6 +8,8 @@ namespace LethalWorkingConditions.Classes
     [HarmonyPatch(typeof(RoundManager))]
     internal class FlickerLightsBClass
     {
+        private LWCLogger logger = new LWCLogger("FlickerLightsBClass");
+
         private static LightAnomalyEventManager lightFlickerEventManager;
         private static bool initaliedYet = false;
 
@@ -27,6 +30,8 @@ namespace LethalWorkingConditions.Classes
     // Spawns every X seconds a light anomaly
     internal class LightAnomalyEventManager
     {
+        private LWCLogger logger = new LWCLogger("LightAnomalyEventManager");
+
         private readonly int lightAnomalyEventIntervalMS = 60000;
 
         private RoundManager roundManager;
@@ -44,7 +49,7 @@ namespace LethalWorkingConditions.Classes
         // Initalize timer instance
         public void Awake()
         {
-            LethalWorkingConditions.mls.LogInfo("LightAnomalyEventManager::Awake()");
+            logger.LogInfo("LightAnomalyEventManager::Awake()");
             lightFlickTimer = new Timer(Tick, null, 0, lightAnomalyEventIntervalMS);
         }
 
@@ -59,7 +64,7 @@ namespace LethalWorkingConditions.Classes
         {
             int randomInt = randomGenerator.Next(0, 100);
             
-            LethalWorkingConditions.mls.LogInfo($"LightAnomalyEventManager::Tick() - {randomInt}");
+            logger.LogInfo($"LightAnomalyEventManager::Tick() - {randomInt}");
 
             roundManager.FlickerLights(true, true);
 

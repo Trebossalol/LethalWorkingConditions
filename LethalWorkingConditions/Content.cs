@@ -1,5 +1,6 @@
 ﻿using LethalLib;
 using LethalLib.Modules;
+using LethalWorkingConditions.Helpers;
 using LethalWorkingConditions.MonoBehaviours;
 using LethalWorkingConditions.Patches;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace LethalWorkingConditions
 {
     internal class Content
     {
+        private static LWCLogger logger = new LWCLogger("Content");
+
         public static AssetBundle MainAssetsBundle;
         private static readonly string mainAssetBundleName = "lethalworkingconditions";
         public static Dictionary<string, GameObject> Prefabs = new Dictionary<string, GameObject>();
@@ -41,8 +44,8 @@ namespace LethalWorkingConditions
                 )
              );
 
-            if (MainAssetsBundle != null) LethalWorkingConditions.mls.LogInfo("AssetBundle loaded");
-            else LethalWorkingConditions.mls.LogError($"Could not load AssetBundle from {mainAssetBundleName}");
+            if (MainAssetsBundle != null) logger.LogInfo("AssetBundle loaded");
+            else logger.LogError($"Could not load AssetBundle from {mainAssetBundleName}");
         }
 
         private static void LoadPatches()
@@ -62,7 +65,7 @@ namespace LethalWorkingConditions
             /// Dev only: Unlimited sprint
             /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));
 
-            LethalWorkingConditions.mls.LogInfo("LWC Patches loaded");
+            logger.LogInfo("Patches loaded");
         }
 
         private static void RegisterCustomScrapItems()
@@ -70,7 +73,7 @@ namespace LethalWorkingConditions
 
             if (MainAssetsBundle == null)
             {
-                LethalWorkingConditions.mls.LogError("Cannot register custom items because AssetBundle is empty");
+                logger.LogError("Cannot register custom items because AssetBundle is empty");
                 return;
             }
 
@@ -110,7 +113,7 @@ namespace LethalWorkingConditions
                 }
             }
 
-            LethalWorkingConditions.mls.LogInfo("CustomItems loaded");
+            logger.LogInfo("CustomItems loaded");
         }
 
 
@@ -148,7 +151,7 @@ namespace LethalWorkingConditions
                 }
             }
 
-            LethalWorkingConditions.mls.LogInfo("Mod content loaded");
+            logger.LogInfo("Mod content loaded");
         }
     }
 }

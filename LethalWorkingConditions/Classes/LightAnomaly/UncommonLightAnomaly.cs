@@ -1,9 +1,12 @@
-﻿using System.Threading;
+﻿using LethalWorkingConditions.Helpers;
+using System.Threading;
 
 namespace LethalWorkingConditions.Classes.LightAnomaly
 {
     internal class UncommonLightAnomaly : BaseLightAnomaly
     {
+        private static LWCLogger logger = new LWCLogger("UncommonLightAnomaly");
+
         private bool initalized = false;
         private int executionIndex = 0;
         private int maxExecutions;
@@ -28,27 +31,27 @@ namespace LethalWorkingConditions.Classes.LightAnomaly
         {
             if (!initalized)
             {
-                LethalWorkingConditions.mls.LogWarning($"UncommonLightAnomaly::Start() - Could not start because Instance is not initalized");
+                logger.LogWarning($"UncommonLightAnomaly::Start() - Could not start because Instance is not initalized");
                 return;
             }
 
-            LethalWorkingConditions.mls.LogInfo($"UncommonLightAnomaly::Start() - {maxExecutions}/{intervalInSeconds}");
+            logger.LogInfo($"UncommonLightAnomaly::Start() - {maxExecutions}/{intervalInSeconds}");
             timer = new Timer(Tick, null, 0, intervalInSeconds * 1000);
         }
 
         public void Dispose()
         {
-            LethalWorkingConditions.mls.LogInfo("UncommonLightAnomaly::Dispose()");
+            logger.LogInfo("UncommonLightAnomaly::Dispose()");
             timer.Dispose();
         }
         
         private void Tick(object sender)
         {
-            LethalWorkingConditions.mls.LogInfo("UncommonLightAnomaly::Tick()");
+            logger.LogInfo("UncommonLightAnomaly::Tick()");
 
             if (executionIndex >= maxExecutions)
             {
-                LethalWorkingConditions.mls.LogInfo("UncommonLightAnomaly::Tick() - Cleanup");
+                logger.LogInfo("UncommonLightAnomaly::Tick() - Cleanup");
                 timer.Dispose();
                 return;
             }

@@ -36,14 +36,7 @@ namespace LethalWorkingConditions.Patches
         [HarmonyPrefix]
         static void RoundManagerBPatch_PlotOutEnemiesForNextHour()
         {
-            MonsterEventManager.activeEvent?.On_PlotOutEnemiesForNextHour();
-        }
-
-        [HarmonyPatch("Update")]
-        [HarmonyPrefix]
-        static void RoundManagerBPatch_Update_Prefix()
-        {
-            MonsterEventManager.activeEvent?.On_Update();
+            MonsterEventManager.activeEvent?.Bind_On_PlotOutEnemiesForNextHour();
         }
 
         [HarmonyPatch("LoadNewLevel")]
@@ -52,7 +45,7 @@ namespace LethalWorkingConditions.Patches
         {
             currentRound = RoundManager.Instance;
 
-            MonsterEventManager.activeEvent?.On_LoadNewLevel();
+            MonsterEventManager.activeEvent?.Bind_On_LoadNewLevel();
         }
 
 

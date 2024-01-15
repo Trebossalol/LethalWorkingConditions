@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using LethalWorkingConditions.Helpers;
+using System.Linq;
 
 namespace LethalWorkingConditions.Classes.ChatCommand
 {
     internal abstract class ChatCommand
     {
+        private LWCLogger logger;
+
         public static string CommandPrefix = "/";
 
         protected HUDManager hudManager;
@@ -36,8 +39,10 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 
         public ChatCommand(string commandname, ref HUDManager hudManager) 
         {
-            this.commandName = commandname;
             this.hudManager = hudManager;
+
+            commandName = commandname;
+            logger = new LWCLogger($"{commandName}");
 
             text = hudManager.chatTextField.text;
             parameters = text.Split(' ').Skip(1).ToArray();
@@ -46,7 +51,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         protected void IssueNotification(string message, bool isWarning = false)
         {
             HUDManager.Instance.DisplayTip(noticeTitle, message, isWarning);
-            LethalWorkingConditions.mls.LogInfo($"{noticeTitle}: {message}");
+            logger.LogInfo($"{noticeTitle}: {message}");
         }
 
         protected void IssueCommandSyntax()

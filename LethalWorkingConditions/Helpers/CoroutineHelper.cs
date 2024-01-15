@@ -7,6 +7,7 @@ namespace LethalWorkingConditions.Helpers
     // Needs to inherit from MonoBehaviour because "StartCoroutine" method is needed
     internal class CoroutineHelper : MonoBehaviour
     {
+        private static LWCLogger logger = new LWCLogger("CoroutineHelper");
         private static CoroutineHelper instance;
 
         public CoroutineHelper() 
@@ -17,7 +18,7 @@ namespace LethalWorkingConditions.Helpers
         public static void Sleep(float seconds)
         {
             if (instance != null) instance.StartCoroutine(SleepCoroutine(seconds));
-            else LethalWorkingConditions.mls.LogError("CoroutineHelper instance is null. Make sure its constructed somwhere.");
+            else logger.LogError("CoroutineHelper instance is null. Make sure its constructed somwhere.");
         }
 
         private static IEnumerator SleepCoroutine(float durationSeconds)

@@ -1,4 +1,5 @@
-﻿using LethalWorkingConditions.Patches;
+﻿using LethalWorkingConditions.Helpers;
+using LethalWorkingConditions.Patches;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
 {
     internal abstract class MonsterEvent
     {
-        public string eventName;
+        private LWCLogger logger;
+
+        public readonly string eventName;
         private string noticeTitle
         {
             get {
@@ -17,37 +20,34 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
             }
         }
 
+        protected abstract void On_LoadNewLevel();
+
+        protected abstract void On_PlotOutEnemiesForNextHour();
+
         public MonsterEvent(string eventName) 
         {
             this.eventName = eventName;
 
-            this.IssueEventOccuredNotifaction();
-        }
-
-        private void IssueEventOccuredNotifaction()
-        {
-            HUDManager.Instance.DisplayTip("Monster Event", $"{eventName}");
+            logger = new LWCLogger($"MonsterEvent::{eventName}");
         }
 
         protected void IssueNotification(string text)
         {
             HUDManager.Instance.DisplayTip(noticeTitle, text);
-            LethalWorkingConditions.mls.LogInfo($"{noticeTitle}: {text}");
+            logger.LogInfo($"{noticeTitle}: {text}");
         }
 
-        public virtual void On_LoadNewLevel()
-        {
 
+        public void Bind_On_LoadNewLevel()
+        {
+            logger.LogInfo("On_LoadNewLevel()");
+            On_LoadNewLevel();
         }
 
-        public virtual void On_Update() 
+        public void Bind_On_PlotOutEnemiesForNextHour()
         {
-        
-        }
-
-        public virtual void On_PlotOutEnemiesForNextHour()
-        {
-
+            logger.LogInfo("On_PlotOutEnemiesForNextHour()");
+            On_PlotOutEnemiesForNextHour();
         }
     }
 }

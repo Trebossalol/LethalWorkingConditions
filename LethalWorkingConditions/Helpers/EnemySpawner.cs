@@ -1,4 +1,5 @@
-﻿using LethalWorkingConditions.Patches;
+﻿using LethalWorkingConditions.Helpers;
+using LethalWorkingConditions.Patches;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,6 +8,9 @@ namespace LethalWorkingConditions.Classes
 {
     internal class EnemySpawner
     {
+        private static LWCLogger logger = new LWCLogger("EnemySpawner");
+
+        // May needs fix because needs to be reinitalized once level changes
         public static List<SpawnableEnemyWithRarity> EnemiesInside = RoundManagerBPatch.currentLevel.Enemies;
         public static List<SpawnableEnemyWithRarity> EnemiesOutside = RoundManagerBPatch.currentLevel.OutsideEnemies;
 
@@ -33,7 +37,7 @@ namespace LethalWorkingConditions.Classes
                 }
                 catch
                 {
-                    LethalWorkingConditions.mls.LogInfo("Failed to spawn enemies, check your command.");
+                    logger.LogInfo("Failed to spawn enemies, check your command.");
                 }
 
                 return;

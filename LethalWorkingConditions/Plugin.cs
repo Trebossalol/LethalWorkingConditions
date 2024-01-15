@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using LethalWorkingConditions.Helpers;
 
 namespace LethalWorkingConditions
 {
@@ -10,24 +11,24 @@ namespace LethalWorkingConditions
     {
         public const string modGUID = "Trebossa.LethalWorkingConditions";
         public const string modName = "Lethal Working Conditions";
-        public const string modVersion = "0.1.4";
+        public const string modVersion = "0.1.5";
 
         public static readonly Harmony harmony = new Harmony(modGUID);
         
         public static LethalWorkingConditions Instance;
 
-        internal static ManualLogSource mls;
+        private static LWCLogger logger;
 
         void Awake()
         {
             if (Instance == null) Instance = this;
 
-            // Assign Logger Instance
-            mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
+            LWCLogger.Init();
+            logger = new LWCLogger("LWC");
 
             Content.Load();
 
-            mls.LogInfo("LWC loaded");
+            logger.LogInfo("Done loading config");
         }
     }
 }

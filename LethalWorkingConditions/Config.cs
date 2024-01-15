@@ -9,7 +9,7 @@ namespace LethalWorkingConditions
 {
     internal class LWCConfig
     {
-        private static ConfigEntry<bool> MonsterEventsEnabled;
+        // private static ConfigEntry<bool> MonsterEventsEnabled;
     
         public static void LoadConfig()
         {

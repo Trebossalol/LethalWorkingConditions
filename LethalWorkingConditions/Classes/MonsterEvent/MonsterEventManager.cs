@@ -1,4 +1,6 @@
-﻿using LethalWorkingConditions.Classes.MonsterEvent.Events;
+﻿using BepInEx.Logging;
+using LethalWorkingConditions.Classes.MonsterEvent.Events;
+using LethalWorkingConditions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,27 @@ namespace LethalWorkingConditions.Classes.MonsterEvent
 {
     internal class MonsterEventManager
     {
+        internal static LWCLogger logger = new LWCLogger("MonsterEventManager");
+
         internal static MonsterEvent activeEvent = null;
 
-        public MonsterEventManager() 
+        internal static void IssueNotification(string title, string message)
         {
-               
+            if (activeEvent == null) return;
+
+            HUDManager.Instance.DisplayTip(title, message);
+
+            logger.LogInfo($"{title}: {message}");
         }
 
         internal static void GenerateNewEvent()
         {
             // Calculate chances
             activeEvent = new SpiderEvent();
+
+            logger.LogInfo("GenerateNewEvent()");
+
+            IssueNotification("Monster Event", activeEvent.eventName);
         }
     }
 }

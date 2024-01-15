@@ -10,10 +10,9 @@ namespace LethalWorkingConditions.Classes.LightAnomaly
 
         public BaseLightAnomaly(ref RoundManager manager)
         {
-            LethalWorkingConditions.mls.LogInfo("BaseLightAnomaly() - Constructed");
-
             roundManager = manager;
         }
+
         protected private void FlickerLights()
         {
             roundManager.FlickerLights(true, true);

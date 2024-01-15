@@ -1,10 +1,4 @@
-﻿using LethalLib.Modules;
-using LethalWorkingConditions.Patches;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace LethalWorkingConditions.Classes.MonsterEvent.Events
 {
@@ -24,12 +18,12 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
             multiplier = 1;
         }
 
-        public override void On_LoadNewLevel()
+        protected override void On_LoadNewLevel()
         {
             EnemySpawner.SpawnEnemy(spiderEnemy, initialSpawnAmount, true);
         }
 
-        public override void On_PlotOutEnemiesForNextHour()
+        protected override void On_PlotOutEnemiesForNextHour()
         {
             int amount = 2 * multiplier;
             multiplier *= 2;
@@ -38,5 +32,6 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
 
             IssueNotification($"Spawned {amount} of {spiderEnemy.enemyType.enemyName}");
         }
+
     }
 }

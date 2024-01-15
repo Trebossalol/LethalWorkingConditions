@@ -110,6 +110,7 @@
     <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Helpers\CoroutineHelper.cs" />
+    <Compile Include="Helpers\LWCLogger.cs" />
     <Compile Include="MonoBehaviours\CustomNetworkTransform.cs" />
     <Compile Include="MonoBehaviours\LethalGigaAI.cs" />
     <Compile Include="Patches\BridgeTriggerBPatch.cs" />
