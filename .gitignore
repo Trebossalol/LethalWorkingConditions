@@ -5,4 +5,4 @@ obj
 .git
 .vs
 .DS_Store
-./LethalWorkingConditions.dll
+LethalWorkingConditions.dll
