@@ -8,10 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0A26135-0EE7-40C2-812E-04DC88F62E1B}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Thunderstore", "Thunderstore", "{31551ACC-CC32-4E83-ADFD-F4E464811DC6}"
-	ProjectSection(SolutionItems) = preProject
 		icon.png = icon.png
 		manifest.json = manifest.json
 		README.md = README.md
@@ -30,9 +26,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{31551ACC-CC32-4E83-ADFD-F4E464811DC6} = {F0A26135-0EE7-40C2-812E-04DC88F62E1B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F53A9C3A-8252-4A02-8DB2-CFB420DC31BE}
