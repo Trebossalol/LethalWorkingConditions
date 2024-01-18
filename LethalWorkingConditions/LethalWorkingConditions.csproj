@@ -123,6 +123,7 @@
     <Compile Include="Patches\TimeOfDayBPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\ChatCommand\Commands\RussianRoulette.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Packages\0Harmony.dll" />

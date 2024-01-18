@@ -7,7 +7,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
     {
         private LWCLogger logger;
 
-        public static string CommandPrefix = "/";
+        public static string CommandPrefix = LWCConfig.TerminalCommandPrefix.Value ?? LWCConfig.TerminalCommandPrefixDefault;
 
         protected HUDManager hudManager;
         protected readonly string text;
@@ -22,20 +22,33 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         {
             get
             {
-                return $"Command: {ChatCommand.CommandPrefix}{commandName}";
+                return $"Command: {CommandPrefix}{commandName}";
             }
         }
 
-        protected virtual string GetFullCommandSyntax()
+        public bool isIntercepted
         {
-            return $"{ChatCommand.CommandPrefix}{commandName}";
+            get;
+            protected set;
         }
 
+
+        // Optional methods which can be overwritten
+        protected virtual string GetFullCommandSyntax()
+        {
+            return $"{CommandPrefix}{commandName}";
+        }
+
+        protected virtual void OnInterception() { }
+
+
+        // Required methods which must be declared
         protected abstract bool CanBeCalled();
 
         protected abstract bool ParseParameters();
 
         protected abstract void Execute();
+
 
         public ChatCommand(string commandname, ref HUDManager hudManager) 
         {
@@ -54,11 +67,15 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             logger.LogInfo($"{noticeTitle}: {message}");
         }
 
+
+        // Help 
         protected void IssueCommandSyntax()
         {
             IssueNotification($"Wrong Syntax: {GetFullCommandSyntax()}");
         }
 
+
+        // Terminal bind
         public bool ExecuteCommand()
         {
             // Check command prequisites (eg. check if user is host)
@@ -82,6 +99,20 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 
             // Do not continue with the original code
             return false;
+        }
+
+
+        // Interception logic
+        public void StopInterception()
+        {
+            isIntercepted = false;
+        }
+
+        protected void InterceptTerminal()
+        {
+            if (isIntercepted) return;
+
+            isIntercepted = true;
         }
     }
 }

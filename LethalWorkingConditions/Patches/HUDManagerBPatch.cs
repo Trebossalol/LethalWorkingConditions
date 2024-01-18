@@ -7,6 +7,7 @@ namespace LethalWorkingConditions.Patches
     [HarmonyPatch(typeof(HUDManager))]
     internal class HUDManagerBPatch
     {
+
         [HarmonyPatch("SubmitChat_performed")]
         [HarmonyPrefix]
         static bool HUDManager_SubmitChat_performed_Prefix(ref HUDManager __instance)

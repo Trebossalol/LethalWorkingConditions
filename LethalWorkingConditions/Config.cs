@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace LethalWorkingConditions
 {
-    internal class LWCConfig
+    public class LWCConfig
     {
-        // private static ConfigEntry<bool> MonsterEventsEnabled;
+        public static readonly string TerminalCommandPrefixDefault = "/";
+        public static readonly bool MonsterEventsEnabledDefault = true;
+
+        public static ConfigEntry<string> TerminalCommandPrefix;
+        public static ConfigEntry<bool> MonsterEventsEnabled;
     
-        public static void LoadConfig()
+        public LWCConfig(ConfigFile cfg)
         {
+            TerminalCommandPrefix = cfg.Bind(
+                "LethalWorkingConditions",
+                "TerminalCommandPrefix",
+                "/",
+                "Prefix for chat commands"
+            );
         }
     }
 }
