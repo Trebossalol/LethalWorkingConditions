@@ -20,8 +20,15 @@ namespace LethalWorkingConditions
             TerminalCommandPrefix = cfg.Bind(
                 "LethalWorkingConditions",
                 "TerminalCommandPrefix",
-                "/",
+                TerminalCommandPrefixDefault,
                 "Prefix for chat commands"
+            );
+
+            MonsterEventsEnabled = cfg.Bind(
+                "LethalWorkingConditions",
+                "MonsterEventsEnabled",
+                MonsterEventsEnabledDefault,
+                "Enable or disable MonsterEvents"
             );
         }
     }

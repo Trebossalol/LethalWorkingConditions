@@ -19,7 +19,7 @@ namespace LethalWorkingConditions
 
         private static LWCLogger logger;
 
-        public static LWCConfig Config { get; internal set; }
+        public static new LWCConfig Config { get; internal set; }
 
         void Awake()
         {
@@ -28,7 +28,7 @@ namespace LethalWorkingConditions
             LWCLogger.Init();
             logger = new LWCLogger("LWC");
 
-            Config = new(base.Config);
+            Config = new LWCConfig(base.Config);
 
             Content.Load();
 

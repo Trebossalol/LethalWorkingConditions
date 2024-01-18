@@ -1,6 +1,8 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
 using LethalWorkingConditions.Classes.ChatCommand;
 using LethalWorkingConditions.Classes.ChatCommand.Commands;
+using UnityEngine.EventSystems;
 
 namespace LethalWorkingConditions.Patches
 {
@@ -22,11 +24,34 @@ namespace LethalWorkingConditions.Patches
             {
                 // Spawn command
                 SpawnCommand spawnCommand = new SpawnCommand(ref __instance);
-                return spawnCommand.ExecuteCommand();
+                bool rv = spawnCommand.ExecuteCommand();
+
+                CleanupCommand(ref __instance);
+
+                return rv;
             }
 
             // If text started with prefix but does not match a command, handle orgiginal logic
-            return true;            
+            return true;       
+        }
+
+        static private void CleanupCommand(ref HUDManager __instance)
+        {
+            PlayerControllerB localPlayer = GameNetworkManager.Instance.localPlayerController;
+
+            localPlayer.isTypingChat = false;
+
+            // Reset chat input
+            __instance.chatTextField.text = "";
+
+            // Unfocus chat input
+            EventSystem.current.SetSelectedGameObject(null);
+
+            // Starts fade-out of chat input
+            __instance.PingHUDElement(__instance.Chat);
+
+            // Hide typing indicator
+            __instance.typingIndicator.enabled = false;
         }
     }
 }

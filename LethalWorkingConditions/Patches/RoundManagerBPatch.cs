@@ -20,7 +20,8 @@ namespace LethalWorkingConditions.Patches
 
             isHost = RoundManager.Instance.NetworkManager.IsHost;
 
-            MonsterEventManager.GenerateNewEvent();
+            // Not done yet
+            // MonsterEventManager.GenerateNewEvent();
         }
 
 
