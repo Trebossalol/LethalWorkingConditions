@@ -19,7 +19,10 @@ The company said they wanna improve the working conditions for their employees. 
 - Chat commands
     - Spawn enemies `/spawn <enemy_name> [amount]` (host only)
 
+## Work in progress
 
+- Playing small games on the terminal - win or die
+- Random monster events which will make the game much harder
 
 ## Installation
 This is the recommended way to install BepInEx on the game.
