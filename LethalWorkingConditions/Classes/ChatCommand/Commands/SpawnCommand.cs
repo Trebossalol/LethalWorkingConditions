@@ -29,7 +29,9 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
         protected override bool CanBeCalled()
         {
-            if (RoundManagerBPatch.isHost) return true;
+            return true;
+
+            //if (RoundManagerBPatch.isHost) return true;
 
             IssueNotification("Only the host is allowed to use this comand");
             
