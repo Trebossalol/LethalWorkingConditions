@@ -3,6 +3,13 @@ using System.Linq;
 
 namespace LethalWorkingConditions.Classes.ChatCommand
 {
+    public enum CommandStatus
+    {
+        PREQUISITES_NOT_MET,
+        PARAMS_INCOMPLETE,
+        OK
+    };
+
     internal abstract class ChatCommand
     {
         private LWCLogger logger;
@@ -26,12 +33,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             }
         }
 
-        public bool isIntercepted
-        {
-            get;
-            protected set;
-        }
-
 
         // Optional methods which can be overwritten
         protected virtual string GetFullCommandSyntax()
@@ -50,7 +51,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         protected abstract void Execute();
 
 
-        public ChatCommand(string commandname, ref HUDManager hudManager) 
+        public ChatCommand(string commandname, ref HUDManager hudManager)
         {
             this.hudManager = hudManager;
 
@@ -74,6 +75,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             IssueNotification($"Wrong Syntax: {GetFullCommandSyntax()}");
         }
 
+        
 
         // Terminal bind
         public bool ExecuteCommand()
@@ -99,20 +101,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 
             // Do not continue with the original code
             return false;
-        }
-
-
-        // Interception logic
-        public void StopInterception()
-        {
-            isIntercepted = false;
-        }
-
-        protected void InterceptTerminal()
-        {
-            if (isIntercepted) return;
-
-            isIntercepted = true;
         }
     }
 }
