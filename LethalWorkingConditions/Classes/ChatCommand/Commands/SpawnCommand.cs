@@ -36,12 +36,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
         protected override bool CanBeCalled()
         {
-            // check if host
-            if (!RoundManagerBPatch.isHost)
-            {
-                IssueNotification("Only the host is allowed to use this comand");
-                return false;
-            };
+            // Skip isHost-permission check
 
             // check if game has started
             try
