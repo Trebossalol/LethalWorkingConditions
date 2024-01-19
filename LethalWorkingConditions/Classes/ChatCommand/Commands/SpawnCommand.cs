@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BepInEx.Logging;
+using HarmonyLib;
 using LethalWorkingConditions.Patches;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,14 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
         private string targetEnemyNameParam = "";
         private int targetEnemyAmountParam = 1;
 
-        private string creaturesAvailableString = 
-            $"{string.Join("|", RoundManagerBPatch.currentLevel.Enemies.Select(e => e.enemyType.enemyName).ToArray())}|{string.Join("|", RoundManagerBPatch.currentLevel.OutsideEnemies.Select(e => e.enemyType.enemyName).ToArray())}";
+        private string creaturesAvailableString
+        {
+            get
+            {
+                return
+                    $"{string.Join("|", RoundManagerBPatch.currentLevel.Enemies.Select(e => e.enemyType.enemyName).ToArray())}|{string.Join("|", RoundManagerBPatch.currentLevel.OutsideEnemies.Select(e => e.enemyType.enemyName).ToArray())}";
+            }
+        }
         
         private bool targetEnemyFound = false;
         private string targetEnemyName;
@@ -42,9 +49,10 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
                 var outsideEnemies = RoundManagerBPatch.currentLevel.OutsideEnemies;
                 var insideEnemies = RoundManagerBPatch.currentLevel.Enemies;
 
-                if (outsideEnemies.Count <= 0 || insideEnemies.Count <= 0) return false;
+                if (outsideEnemies.Count <= 0 || insideEnemies.Count <= 0) throw new Exception();
             } catch
             {
+                IssueNotification("You need to start the game before spawning enemies");
                 return false;
             }
             

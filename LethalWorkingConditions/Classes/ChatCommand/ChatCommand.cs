@@ -13,7 +13,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 
     internal abstract class ChatCommand
     {
-        private LWCLogger logger;
+        protected LWCLogger logger;
 
         public static string CommandPrefix = LWCConfig.TerminalCommandPrefix.Value ?? LWCConfig.TerminalCommandPrefixDefault;
 
