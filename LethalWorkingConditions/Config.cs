@@ -9,26 +9,41 @@ namespace LethalWorkingConditions
 {
     public class LWCConfig
     {
-        public static readonly string TerminalCommandPrefixDefault = "/";
-        public static readonly bool MonsterEventsEnabledDefault = true;
+        public readonly string Name = "LethalWorkingConditions";
 
+        // Chat command stuff
+        public static readonly string TerminalCommandPrefixDefault = "/";
         public static ConfigEntry<string> TerminalCommandPrefix;
+
+        public static readonly bool TerminalCommandDisableChatDefault = false;
+        public static ConfigEntry<bool> TerminalCommandDisableChat;
+
+
+        // Monster event stuff
+        public static readonly bool MonsterEventsEnabledDefault = true;
         public static ConfigEntry<bool> MonsterEventsEnabled;
     
         public LWCConfig(ConfigFile cfg)
         {
             TerminalCommandPrefix = cfg.Bind(
-                "LethalWorkingConditions",
+                Name,
                 "TerminalCommandPrefix",
                 TerminalCommandPrefixDefault,
                 "Prefix for chat commands"
             );
 
+            TerminalCommandDisableChat = cfg.Bind(
+                Name,
+                "TerminalCommandDisableChat",
+                TerminalCommandDisableChatDefault,
+                "If enabled, your chat messages will not be sent to other clients"
+            );
+
             MonsterEventsEnabled = cfg.Bind(
-                "LethalWorkingConditions",
+                Name,
                 "MonsterEventsEnabled",
                 MonsterEventsEnabledDefault,
-                "Enable or disable MonsterEvents"
+                "If enabled, monster events can occure"
             );
         }
     }
