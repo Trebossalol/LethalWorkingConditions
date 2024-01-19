@@ -46,8 +46,9 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
             // check if game has started
             try
             {
-                var outsideEnemies = RoundManagerBPatch.currentLevel.OutsideEnemies;
-                var insideEnemies = RoundManagerBPatch.currentLevel.Enemies;
+                
+                var outsideEnemies = EnemySpawner.EnemiesOutside;
+                var insideEnemies = EnemySpawner.EnemiesInside;
 
                 if (outsideEnemies.Count <= 0 || insideEnemies.Count <= 0) throw new Exception();
             }

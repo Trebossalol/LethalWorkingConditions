@@ -11,3 +11,4 @@ an/aus/an/aus flickering
 - weniger loot 8%
 
 - warnung wenn command ausgeführt wird und game noch nciht gestartet
+- commands ausführen while dead - GUI ??
