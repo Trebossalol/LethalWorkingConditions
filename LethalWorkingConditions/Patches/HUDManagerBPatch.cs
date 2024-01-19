@@ -2,48 +2,61 @@
 using HarmonyLib;
 using LethalWorkingConditions.Classes.ChatCommand;
 using LethalWorkingConditions.Classes.ChatCommand.Commands;
+using System;
+using System.Net.NetworkInformation;
 using UnityEngine.EventSystems;
+using static UnityEngine.TouchScreenKeyboard;
 
 namespace LethalWorkingConditions.Patches
 {
     [HarmonyPatch(typeof(HUDManager))]
     internal class HUDManagerBPatch
     {
+        private static bool chatDisabled = LWCConfig.TerminalCommandDisableChat.Value;
 
         [HarmonyPatch("SubmitChat_performed")]
         [HarmonyPrefix]
         static bool HUDManager_SubmitChat_performed_Prefix(ref HUDManager __instance)
         {
-            bool chatDisabled = LWCConfig.TerminalCommandDisableChat.Value;
-
             string text = __instance.chatTextField.text;
 
-            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix)) {
-                // This is no command
-
-                // If chat is disabled, do not continue original logic
-                if (chatDisabled) return false;
-
-                // If chat is not disabled, continue original logic
+            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix) && !chatDisabled)
+            {
                 return true;
             }
 
-            // Check if a command "spawn" is called
-            if (text.ToLower().StartsWith($"{ChatCommand.CommandPrefix}spawn"))
-            {
-                // Spawn command
-                SpawnCommand spawnCommand = new(ref __instance);
-                bool rv = spawnCommand.ExecuteCommand();
+            CommandStatus status = HandleCommandLogic(text, ref __instance);
 
-                CleanupGUI(ref __instance);
-
-                return rv;
-            }
+            CleanupGUI(ref __instance);
 
             if (chatDisabled) return false;
 
-            // If text started with prefix but does not match a command, handle orgiginal logic
-            return true;       
+            switch (status)
+            {
+                // Either no command was found or the requirements are not met -> Continue with networking logic
+                case CommandStatus.NOT_SET:
+                case CommandStatus.PREQUISITES_NOT_MET:
+                    return true;
+
+                // EIther params are not complete or command was executed -> Do not continue original logic
+                case CommandStatus.PARAMS_INCOMPLETE:
+                case CommandStatus.OK:
+                default:
+                    return false;
+            }
+        }
+
+        static private CommandStatus HandleCommandLogic(string text, ref HUDManager __instance)
+        {
+            CommandStatus status = CommandStatus.NOT_SET;
+
+            if (text.ToLower().StartsWith($"{ChatCommand.CommandPrefix}spawn"))
+            {
+                SpawnCommand spawnCommand = new SpawnCommand(ref __instance);
+                status = spawnCommand.ExecuteCommand();
+            }
+
+            return status;
         }
 
         static private void CleanupGUI(ref HUDManager __instance)

@@ -5,6 +5,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
 {
     public enum CommandStatus
     {
+        NOT_SET,
         PREQUISITES_NOT_MET,
         PARAMS_INCOMPLETE,
         OK
@@ -78,29 +79,21 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         
 
         // Terminal bind
-        public bool ExecuteCommand()
+        public CommandStatus ExecuteCommand()
         {
-            // Check command prequisites (eg. check if user is host)
             bool canBeCalled = CanBeCalled();
-            // If prequisites are not met, continue with the original code
-            if (!canBeCalled) return true;
+            if (!canBeCalled) return CommandStatus.PREQUISITES_NOT_MET;
 
-            // Try to parse params
             bool paramsValid = ParseParameters();
-            // If the required params are found or could not be parsed
             if (!paramsValid)
             {
-                // Display a notification with the correct syntax
                 IssueCommandSyntax();
-                // Do not continue with the original code
-                return false;
+                return CommandStatus.PARAMS_INCOMPLETE;
             }
 
-            // All requirements are checked, execute the command
             Execute();
 
-            // Do not continue with the original code
-            return false;
+            return CommandStatus.OK;
         }
     }
 }
