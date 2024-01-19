@@ -2,10 +2,7 @@
 using HarmonyLib;
 using LethalWorkingConditions.Classes.ChatCommand;
 using LethalWorkingConditions.Classes.ChatCommand.Commands;
-using System;
-using System.Net.NetworkInformation;
 using UnityEngine.EventSystems;
-using static UnityEngine.TouchScreenKeyboard;
 
 namespace LethalWorkingConditions.Patches
 {
@@ -20,30 +17,15 @@ namespace LethalWorkingConditions.Patches
         {
             string text = __instance.chatTextField.text;
 
-            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix) && !chatDisabled)
-            {
-                return true;
-            }
+            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix) && !chatDisabled) return true;
 
             CommandStatus status = HandleCommandLogic(text, ref __instance);
 
             CleanupGUI(ref __instance);
 
-            if (chatDisabled) return false;
+            if (status == CommandStatus.NOT_SET && !chatDisabled) return true;
 
-            switch (status)
-            {
-                // Either no command was found or the requirements are not met -> Continue with networking logic
-                case CommandStatus.NOT_SET:
-                case CommandStatus.PREQUISITES_NOT_MET:
-                    return true;
-
-                // EIther params are not complete or command was executed -> Do not continue original logic
-                case CommandStatus.PARAMS_INCOMPLETE:
-                case CommandStatus.OK:
-                default:
-                    return false;
-            }
+            return false;
         }
 
         static private CommandStatus HandleCommandLogic(string text, ref HUDManager __instance)

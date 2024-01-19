@@ -29,11 +29,26 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
         protected override bool CanBeCalled()
         {
-            if (RoundManagerBPatch.isHost) return true;
+            // check if host
+            if (!RoundManagerBPatch.isHost)
+            {
+                IssueNotification("Only the host is allowed to use this comand");
+                return false;
+            };
 
-            IssueNotification("Only the host is allowed to use this comand");
+            // check if game has started
+            try
+            {
+                var outsideEnemies = RoundManagerBPatch.currentLevel.OutsideEnemies;
+                var insideEnemies = RoundManagerBPatch.currentLevel.Enemies;
+
+                if (outsideEnemies.Count <= 0 || insideEnemies.Count <= 0) return false;
+            } catch
+            {
+                return false;
+            }
             
-            return false;
+            return true;
         }
 
         protected override bool ParseParameters()
