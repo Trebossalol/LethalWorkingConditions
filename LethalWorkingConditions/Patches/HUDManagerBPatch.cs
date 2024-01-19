@@ -9,6 +9,7 @@ namespace LethalWorkingConditions.Patches
     [HarmonyPatch(typeof(HUDManager))]
     internal class HUDManagerBPatch
     {
+        private static bool chatDisabled = LWCConfig.TerminalCommandDisableChat.Value;
 
         [HarmonyPatch("SubmitChat_performed")]
         [HarmonyPrefix]
@@ -16,29 +17,35 @@ namespace LethalWorkingConditions.Patches
         {
             string text = __instance.chatTextField.text;
 
-            // Check if text starts with command prefix, if not continue with original code
-            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix)) return true;
+            if (!text.ToLower().StartsWith(ChatCommand.CommandPrefix) && !chatDisabled) return true;
 
-            // Check if a command is called
-            if (text.ToLower().StartsWith($"{ChatCommand.CommandPrefix}spawn"))
-            {
-                // Spawn command
-                SpawnCommand spawnCommand = new SpawnCommand(ref __instance);
-                bool rv = spawnCommand.ExecuteCommand();
+            CommandStatus status = HandleCommandLogic(text, ref __instance);
 
-                CleanupCommand(ref __instance);
+            CleanupGUI(ref __instance);
 
-                return rv;
-            }
+            if (status == CommandStatus.NOT_SET && !chatDisabled) return true;
 
-            // If text started with prefix but does not match a command, handle orgiginal logic
-            return true;       
+            return false;
         }
 
-        static private void CleanupCommand(ref HUDManager __instance)
+        static private CommandStatus HandleCommandLogic(string text, ref HUDManager __instance)
+        {
+            CommandStatus status = CommandStatus.NOT_SET;
+
+            if (text.ToLower().StartsWith($"{ChatCommand.CommandPrefix}spawn"))
+            {
+                SpawnCommand spawnCommand = new SpawnCommand(ref __instance);
+                status = spawnCommand.ExecuteCommand();
+            }
+
+            return status;
+        }
+
+        static private void CleanupGUI(ref HUDManager __instance)
         {
             PlayerControllerB localPlayer = GameNetworkManager.Instance.localPlayerController;
 
+            // bro idk
             localPlayer.isTypingChat = false;
 
             // Reset chat input

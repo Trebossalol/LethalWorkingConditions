@@ -3,9 +3,17 @@ using System.Linq;
 
 namespace LethalWorkingConditions.Classes.ChatCommand
 {
+    public enum CommandStatus
+    {
+        NOT_SET,
+        PREQUISITES_NOT_MET,
+        PARAMS_INCOMPLETE,
+        OK
+    };
+
     internal abstract class ChatCommand
     {
-        private LWCLogger logger;
+        protected LWCLogger logger;
 
         public static string CommandPrefix = LWCConfig.TerminalCommandPrefix.Value ?? LWCConfig.TerminalCommandPrefixDefault;
 
@@ -26,12 +34,6 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             }
         }
 
-        public bool isIntercepted
-        {
-            get;
-            protected set;
-        }
-
 
         // Optional methods which can be overwritten
         protected virtual string GetFullCommandSyntax()
@@ -50,7 +52,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand
         protected abstract void Execute();
 
 
-        public ChatCommand(string commandname, ref HUDManager hudManager) 
+        public ChatCommand(string commandname, ref HUDManager hudManager)
         {
             this.hudManager = hudManager;
 
@@ -74,45 +76,24 @@ namespace LethalWorkingConditions.Classes.ChatCommand
             IssueNotification($"Wrong Syntax: {GetFullCommandSyntax()}");
         }
 
+        
 
         // Terminal bind
-        public bool ExecuteCommand()
+        public CommandStatus ExecuteCommand()
         {
-            // Check command prequisites (eg. check if user is host)
             bool canBeCalled = CanBeCalled();
-            // If prequisites are not met, continue with the original code
-            if (!canBeCalled) return true;
+            if (!canBeCalled) return CommandStatus.PREQUISITES_NOT_MET;
 
-            // Try to parse params
             bool paramsValid = ParseParameters();
-            // If the required params are found or could not be parsed
             if (!paramsValid)
             {
-                // Display a notification with the correct syntax
                 IssueCommandSyntax();
-                // Do not continue with the original code
-                return false;
+                return CommandStatus.PARAMS_INCOMPLETE;
             }
 
-            // All requirements are checked, execute the command
             Execute();
 
-            // Do not continue with the original code
-            return false;
-        }
-
-
-        // Interception logic
-        public void StopInterception()
-        {
-            isIntercepted = false;
-        }
-
-        protected void InterceptTerminal()
-        {
-            if (isIntercepted) return;
-
-            isIntercepted = true;
+            return CommandStatus.OK;
         }
     }
 }

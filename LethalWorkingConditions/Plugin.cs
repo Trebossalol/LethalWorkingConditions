@@ -25,10 +25,10 @@ namespace LethalWorkingConditions
         {
             if (Instance == null) Instance = this;
 
+            Config = new LWCConfig(base.Config);
+
             LWCLogger.Init();
             logger = new LWCLogger("LWC");
-
-            Config = new LWCConfig(base.Config);
 
             Content.Load();
 
