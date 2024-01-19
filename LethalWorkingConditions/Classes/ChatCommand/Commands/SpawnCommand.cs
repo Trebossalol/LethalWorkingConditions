@@ -36,7 +36,12 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
         protected override bool CanBeCalled()
         {
-            // Skip isHost-permission check
+            // check if host
+            if (!RoundManagerBPatch.isHost)
+            {
+                IssueNotification("Only the host is allowed to use this comand");
+                return false;
+            };
 
             // check if game has started
             try
@@ -45,12 +50,13 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
                 var insideEnemies = RoundManagerBPatch.currentLevel.Enemies;
 
                 if (outsideEnemies.Count <= 0 || insideEnemies.Count <= 0) throw new Exception();
-            } catch
+            }
+            catch
             {
                 IssueNotification("You need to start the game before spawning enemies");
                 return false;
             }
-            
+
             return true;
         }
 
