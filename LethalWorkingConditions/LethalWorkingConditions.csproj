@@ -72,6 +72,14 @@
     <Reference Include="UnityEngine">
       <HintPath>.\Packages\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Packages\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Packages\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Packages\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -97,7 +105,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AssetBundleStuff.cs" />
     <Compile Include="Classes\ChatCommand\ChatCommand.cs" />
     <Compile Include="Classes\ChatCommand\Commands\SpawnCommand.cs" />
     <Compile Include="Classes\FlickerLightsBClass.cs" />
@@ -114,6 +121,7 @@
     <Compile Include="Helpers\LWCLogger.cs" />
     <Compile Include="MonoBehaviours\CustomNetworkTransform.cs" />
     <Compile Include="MonoBehaviours\LethalGigaAI.cs" />
+    <Compile Include="MonoBehaviours\PartyMonkeyAI.cs" />
     <Compile Include="Patches\BridgeTriggerBPatch.cs" />
     <Compile Include="Patches\HUDManagerBPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />
@@ -142,6 +150,8 @@
     <Content Include="Packages\UnityEngine.PhysicsModule.dll" />
     <Content Include="Packages\UnityEngine.UI.dll" />
     <Content Include="Packages\LethalLib.dll" />
+    <Content Include="Packages\UnityEngine.AnimationModule.dll" />
+    <Content Include="Packages\UnityEngine.AIModule.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="mbundle" />

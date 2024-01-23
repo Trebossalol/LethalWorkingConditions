@@ -97,19 +97,13 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
 
                 if (enemy.enemyType.enemyName.ToLower().Contains(targetEnemyNameParam))
                 {
-
                     targetEnemyFound = true;
                     targetEnemyName = enemy.enemyType.enemyName;
 
-                    try
-                    {
-                        EnemySpawner.SpawnEnemy(enemy, targetEnemyAmountParam, inside);
-                        IssueNotification($"Spawned {targetEnemyAmountParam} {targetEnemyName}");
-                    }
-                    catch
-                    {
-                        IssueNotification("Could not spawn enemies");
-                    }
+                    bool success = EnemySpawner.SpawnEnemy(enemy, targetEnemyAmountParam, inside);
+                        
+                    if (success) IssueNotification($"Spawned {targetEnemyAmountParam} {targetEnemyName}");
+                    else IssueNotification("Could not spawn enemies because an unknown error occured. Check console");
                 }
             }
         }

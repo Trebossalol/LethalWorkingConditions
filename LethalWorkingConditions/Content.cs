@@ -8,7 +8,8 @@ using System.IO;
 using System.Reflection;
 using Unity.Netcode.Components;
 using UnityEngine;
-using static LethalWorkingConditions.AssetBundleStuff;
+using static LethalLib.Modules.Enemies;
+using static LethalLib.Modules.Levels;
 
 namespace LethalWorkingConditions
 {
@@ -19,18 +20,6 @@ namespace LethalWorkingConditions
         public static AssetBundle MainAssetsBundle;
         private static readonly string mainAssetBundleName = "lethalworkingconditions";
         public static Dictionary<string, GameObject> Prefabs = new Dictionary<string, GameObject>();
-
-        public static List<CustomEnemy> customEnemies;
-        public static List<CustomItem> customItems = new List<CustomItem>
-        {
-            /*CustomScrap.Add(
-                "GamingPC",
-                "GamingPC.asset",//"Assets/LethalWorkingConditions/Scrap/GamingPC/GamingPC.asset",
-                Levels.LevelTypes.All,
-                90
-            )*/
-        };
-
 
         // Loading logic
         private static void TryLoadAssets()
@@ -68,54 +57,25 @@ namespace LethalWorkingConditions
             logger.LogInfo("Patches loaded");
         }
 
-        private static void RegisterCustomScrapItems()
+        private static void LoadEnemies()
         {
-
-            if (MainAssetsBundle == null)
-            {
-                logger.LogError("Cannot register custom items because AssetBundle is empty");
-                return;
-            }
-
-            foreach (var item in customItems)
-            {
-                if (!item.enabled) continue;
-
-                var itemAsset = MainAssetsBundle.LoadAsset<Item>(item.itemPath);
-                if (itemAsset.spawnPrefab.GetComponent<NetworkTransform>() == null && itemAsset.spawnPrefab.GetComponent<CustomNetworkTransform>() == null)
-                {
-                    var networkTransform = itemAsset.spawnPrefab.AddComponent<NetworkTransform>();
-                    networkTransform.SlerpPosition = false;
-                    networkTransform.Interpolate = false;
-                    networkTransform.SyncPositionX = false;
-                    networkTransform.SyncPositionY = false;
-                    networkTransform.SyncPositionZ = false;
-                    networkTransform.SyncScaleX = false;
-                    networkTransform.SyncScaleY = false;
-                    networkTransform.SyncScaleZ = false;
-                    networkTransform.UseHalfFloatPrecision = true;
-                }
-                Prefabs.Add(item.name, itemAsset.spawnPrefab);
-                LethalLib.Modules.NetworkPrefabs.RegisterNetworkPrefab(itemAsset.spawnPrefab);
-                item.itemAction(itemAsset);
-
-
-                if (item is CustomShopItem shopitem)
-                {
-                    var itemInfo = MainAssetsBundle.LoadAsset<TerminalNode>(shopitem.infoPath);
-                    Plugin.logger.LogInfo($"Registering shop item {item.name} with price {shopitem.itemPrice}");
-                    Items.RegisterShopItem(itemAsset, null, null, itemInfo, shopitem.itemPrice);
-                }
-                else if (item is CustomScrap scrap)
-                {
-                    Plugin.logger.LogInfo($"Registering scrap item {scrap.name} with price rarity:{scrap.rarity} and leveltype:{scrap.levelType}");
-                    Items.RegisterScrap(itemAsset, scrap.rarity, scrap.levelType);
-                }
-            }
-
-            logger.LogInfo("CustomItems loaded");
+            LoadEnemy("LethalGiga", 100, LevelTypes.All, SpawnType.Default);
         }
 
+        private static void LoadEnemy(string name, int rarity, LevelTypes levelType, SpawnType spawnType)
+        {
+            logger.LogInfo($"Loading enemy {name}");
+
+            EnemyType enemy = MainAssetsBundle.LoadAsset<EnemyType>(name);
+            var terminalNode = MainAssetsBundle.LoadAsset<TerminalNode>($"{name}TN");
+            var terminalKeyword = MainAssetsBundle.LoadAsset<TerminalKeyword>($"{name}TK");
+
+            NetworkPrefabs.RegisterNetworkPrefab(enemy.enemyPrefab);
+
+            RegisterEnemy(enemy, rarity, levelType, spawnType, terminalNode, terminalKeyword);
+
+            logger.LogInfo($"Loaded {name}");
+        }
 
         // Main Loading method
         public static void Load()
@@ -127,7 +87,7 @@ namespace LethalWorkingConditions
 
             TryLoadAssets();
 
-            RegisterCustomScrapItems();
+            LoadEnemies();
 
             // loop through prefabs
             foreach (var prefabSet in Prefabs)

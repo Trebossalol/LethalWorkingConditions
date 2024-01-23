@@ -32,7 +32,7 @@ namespace LethalWorkingConditions.Patches
             currentLevel = ___currentLevel;
             currentLevelVents = ___allEnemyVents;
 
-            MonsterEventManager.activeEvent?.Bind_AdvanceHourAndSpawnNewBatchOfEnemies();
+            //MonsterEventManager.activeEvent?.Bind_AdvanceHourAndSpawnNewBatchOfEnemies();
         }
 
         [HarmonyPatch("LoadNewLevel")]
@@ -41,7 +41,7 @@ namespace LethalWorkingConditions.Patches
         {
             currentRound = RoundManager.Instance;
 
-            MonsterEventManager.activeEvent?.Bind_On_LoadNewLevel();
+            //MonsterEventManager.activeEvent?.Bind_On_LoadNewLevel();
         }
 
 

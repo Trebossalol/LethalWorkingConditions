@@ -1,5 +1,6 @@
 ﻿using LethalWorkingConditions.Helpers;
 using LethalWorkingConditions.Patches;
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -21,34 +22,42 @@ namespace LethalWorkingConditions.Classes
             get { return RoundManagerBPatch.currentLevel.OutsideEnemies;  }
         }
 
-        public static void SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, bool inside)
+        // has some weird error
+        public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, bool inside)
         {
             // doesn't work regardless if not host but just in case
             if (!RoundManagerBPatch.isHost)
             {
                 logger.LogInfo("Could not spawn enemies because user is not host");
-                return;
+                return false;
             }
 
             if (inside)
             {
                 try
                 {
+                    Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
+                                                .floorNode.position;
+                    int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
+
                     for (int i = 0; i < amount; i++)
                     {
+
+                        float yRot = RoundManagerBPatch.currentRound.allEnemyVents[i].floorNode.eulerAngles.y;
+
                         RoundManagerBPatch
                             .currentRound
                             .SpawnEnemyOnServer(
-                                RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
-                                    .floorNode.position,
-                                RoundManagerBPatch.currentRound.allEnemyVents[i].floorNode.eulerAngles.y,
+                                spawnPosition, 
+                                yRot,
                                 RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy)
                             );
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    logger.LogWarning("Failed to spawn enemies, check your command.");
+                    logger.LogError("Failed to spawn enemies: " + ex.ToString());
+                    return false;
                 }
             } 
             else
@@ -62,17 +71,20 @@ namespace LethalWorkingConditions.Classes
                                 .OutsideEnemies[RoundManagerBPatch.currentLevel.OutsideEnemies.IndexOf(enemy)]
                                 .enemyType.enemyPrefab,
                             GameObject.FindGameObjectsWithTag("OutsideAINode")
-                                [Random.Range(0, GameObject.FindGameObjectsWithTag("OutsideAINode").Length - 1)].transform.position,
+                                [UnityEngine.Random.Range(0, GameObject.FindGameObjectsWithTag("OutsideAINode").Length - 1)].transform.position,
                             Quaternion.Euler(Vector3.zero));
 
                         obj.gameObject.GetComponentInChildren<NetworkObject>()
                             .Spawn(destroyWithScene: true);
                     }
-               } catch
+               } catch (Exception ex)
                {
-                    logger.LogWarning("Failed to spawn enemies, check your command.");
-               }
+                    logger.LogError("Failed to spawn enemies: " + ex.ToString());
+                    return false;
+                }
             }
+
+            return true;
         }
     
         public static SpawnableEnemyWithRarity FindEnemy(List<SpawnableEnemyWithRarity> list, string search)

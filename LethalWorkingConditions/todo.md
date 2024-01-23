@@ -12,3 +12,4 @@ an/aus/an/aus flickering
 
 - warnung wenn command ausgeführt wird und game noch nciht gestartet
 - commands ausführen while dead - GUI ??
+- kann kein enter drücken in terminal
