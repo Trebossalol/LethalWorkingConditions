@@ -25,7 +25,6 @@ namespace LethalWorkingConditions.Classes
         // has some weird error
         public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, bool inside)
         {
-            // doesn't work regardless if not host but just in case
             if (!RoundManagerBPatch.isHost)
             {
                 logger.LogInfo("Could not spawn enemies because user is not host");
