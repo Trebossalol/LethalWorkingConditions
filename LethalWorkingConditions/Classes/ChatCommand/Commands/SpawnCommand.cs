@@ -18,7 +18,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
             get
             {
                 return
-                    $"{string.Join("|", RoundManagerBPatch.currentLevel.Enemies.Select(e => e.enemyType.enemyName).ToArray())}|{string.Join("|", RoundManagerBPatch.currentLevel.OutsideEnemies.Select(e => e.enemyType.enemyName).ToArray())}";
+                    $"{string.Join("|", EnemySpawner.EnemiesInside.Select(e => e.enemyType.enemyName).ToArray())}|{string.Join("|", EnemySpawner.EnemiesOutside.Select(e => e.enemyType.enemyName).ToArray())}";
             }
         }
         
