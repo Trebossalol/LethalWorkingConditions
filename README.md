@@ -6,9 +6,6 @@ The company said they wanna improve the working conditions for their employees. 
 - BridgeTrigger
     - Makes the bridge more instable
 
-- Quicksand
-    - Quicksand will be more dangerous
-
 - RoundManager
     - Increases the map size slightly
     - Adds light flickering every 30 seconds
