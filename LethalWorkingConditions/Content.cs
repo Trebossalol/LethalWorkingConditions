@@ -47,7 +47,6 @@ namespace LethalWorkingConditions
 
             // Load other patches and game modifications
             LethalWorkingConditions.harmony.PatchAll(typeof(BridgeTriggerBPatch));
-            LethalWorkingConditions.harmony.PatchAll(typeof(QuicksandTriggerBPatch));
             LethalWorkingConditions.harmony.PatchAll(typeof(SprayPaintItemBPatch));
             LethalWorkingConditions.harmony.PatchAll(typeof(TimeOfDayBPatch));
 

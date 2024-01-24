@@ -326,6 +326,13 @@ namespace LethalWorkingConditions.MonoBehaviours
                     }
                 }
             }
+
+            Turret[] turrets = UnityEngine.Object.FindObjectsOfType<Turret>();
+
+            foreach (var turret in turrets)
+            {
+                turret.EnterBerserkModeServerRpc(-1);
+            }
         }
     }
 }

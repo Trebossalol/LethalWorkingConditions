@@ -130,24 +130,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Packages\0Harmony.dll" />
-    <Content Include="Packages\Assembly-CSharp.dll" />
-    <Content Include="Packages\BepInEx.dll" />
-    <Content Include="Packages\Unity.InputSystem.dll" />
-    <Content Include="Packages\Unity.Netcode.Components.dll" />
-    <Content Include="Packages\Unity.Netcode.Runtime.dll" />
-    <Content Include="Packages\Unity.Networking.Transport.dll" />
-    <Content Include="Packages\Unity.TextMeshPro.dll" />
-    <Content Include="Packages\UnityEngine.AssetBundleModule.dll" />
-    <Content Include="Packages\UnityEngine.AudioModule.dll" />
-    <Content Include="Packages\UnityEngine.CoreModule.dll" />
-    <Content Include="Packages\UnityEngine.dll" />
-    <Content Include="Packages\UnityEngine.InputModule.dll" />
-    <Content Include="Packages\UnityEngine.PhysicsModule.dll" />
-    <Content Include="Packages\UnityEngine.UI.dll" />
-    <Content Include="Packages\LethalLib.dll" />
-    <Content Include="Packages\UnityEngine.AnimationModule.dll" />
-    <Content Include="Packages\UnityEngine.AIModule.dll" />
+    <Content Include="References\0Harmony.dll" />
+    <Content Include="References\Assembly-CSharp.dll" />
+    <Content Include="References\BepInEx.dll" />
+    <Content Include="References\Unity.InputSystem.dll" />
+    <Content Include="References\Unity.Netcode.Components.dll" />
+    <Content Include="References\Unity.Netcode.Runtime.dll" />
+    <Content Include="References\Unity.Networking.Transport.dll" />
+    <Content Include="References\Unity.TextMeshPro.dll" />
+    <Content Include="References\UnityEngine.AssetBundleModule.dll" />
+    <Content Include="References\UnityEngine.AudioModule.dll" />
+    <Content Include="References\UnityEngine.CoreModule.dll" />
+    <Content Include="References\UnityEngine.dll" />
+    <Content Include="References\UnityEngine.InputModule.dll" />
+    <Content Include="References\UnityEngine.PhysicsModule.dll" />
+    <Content Include="References\UnityEngine.UI.dll" />
+    <Content Include="References\LethalLib.dll" />
+    <Content Include="References\UnityEngine.AnimationModule.dll" />
+    <Content Include="References\UnityEngine.AIModule.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="mbundle" />
