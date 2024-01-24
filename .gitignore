@@ -2,7 +2,6 @@
 bin
 obj
 *.zip
-.git
 .vs
-.DS_Store
+**/.DS_Store
 LethalWorkingConditions.dll
