@@ -117,21 +117,17 @@
     <Compile Include="Config.cs" />
     <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />
-    <Compile Include="Helpers\CoroutineHelper.cs" />
     <Compile Include="Helpers\LWCLogger.cs" />
-    <Compile Include="MonoBehaviours\CustomNetworkTransform.cs" />
     <Compile Include="MonoBehaviours\LethalGigaAI.cs" />
     <Compile Include="MonoBehaviours\PartyMonkeyAI.cs" />
     <Compile Include="Patches\BridgeTriggerBPatch.cs" />
     <Compile Include="Patches\HUDManagerBPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />
-    <Compile Include="Patches\QuicksandTriggerBPatch.cs" />
     <Compile Include="Patches\RoundManagerBPatch.cs" />
     <Compile Include="Patches\SprayPaintItemBPatch.cs" />
     <Compile Include="Patches\TimeOfDayBPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\ChatCommand\Commands\RussianRoulette.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Packages\0Harmony.dll" />
