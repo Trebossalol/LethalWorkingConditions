@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine.InputSystem.XR;
-using UnityEngine;
+﻿using UnityEngine;
 using GameNetcodeStuff;
 using System.Collections;
 using Unity.Netcode;
 using LethalWorkingConditions.Helpers;
+using System;
 
 namespace LethalWorkingConditions.MonoBehaviours
 {
@@ -38,6 +37,7 @@ namespace LethalWorkingConditions.MonoBehaviours
             SearchingForPlayer,
             StickingInFrontOfPlayer,
             HeadSwingAttackInProgress,
+            LethalScream
         }
 
         private LWCLogger logger = new LWCLogger("LethalGigaAI");
@@ -66,6 +66,8 @@ namespace LethalWorkingConditions.MonoBehaviours
         public override void Update()
         {
             base.Update();
+
+            // Handle death
             if (isEnemyDead)
             {
                 // For some weird reason I can't get an RPC to get called from HitEnemy() (works from other methods), so we do this workaround. We just want the enemy to stop playing the song.
@@ -97,9 +99,11 @@ namespace LethalWorkingConditions.MonoBehaviours
         public override void DoAIInterval()
         {
             base.DoAIInterval();
+
+            // If dead or players dead
             if (isEnemyDead || StartOfRound.Instance.allPlayersDead) return;
             
-            // Sets scoutingSearchRoutine.inProgress to True if serching, False if found player
+            // Sets scoutingSearchRoutine.inProgress to True if searching, False if found player
             // Will set targetPlayer to the closest player
             KeepSearchingForPlayerUnlessInRange(25, ref scoutingSearchRoutine);
 
@@ -115,6 +119,10 @@ namespace LethalWorkingConditions.MonoBehaviours
                 case (int)LGBehaviour.HeadSwingAttackInProgress:
                     // We don't care about doing anything here
                     break;
+                case (int)LGBehaviour.LethalScream:
+                    agent.speed = 0f;
+                    PrepareScream();
+                    break;
                 default:
                     logger.LogInfo("This Behavior State doesn't exist!");
                     break;
@@ -124,13 +132,27 @@ namespace LethalWorkingConditions.MonoBehaviours
         void KeepSearchingForPlayerUnlessInRange(float range, ref AISearchRoutine routine)
         {
             TargetClosestPlayer();
+
+            // has target and is in range
             if (targetPlayer != null && Vector3.Distance(transform.position, targetPlayer.transform.position) <= range)
             {
+                // if routine is in progress
                 if (routine.inProgress)
                 {
-                    logger.LogInfo("Start Target Player");
-                    StopSearch(routine);
-                    SwitchToBehaviourClientRpc((int)LGBehaviour.StickingInFrontOfPlayer);
+                    int rng = enemyRandom.Next(0, 10);
+
+                    if (rng >= 5)
+                    {
+                        logger.LogInfo("");
+                        StopSearch(routine);
+                        SwitchToBehaviourClientRpc((int)LGBehaviour.LethalScream);
+                    }
+                    else
+                    {
+                        logger.LogInfo("SwitchBehaviour to Sticking");
+                        StopSearch(routine);
+                        SwitchToBehaviourClientRpc((int)LGBehaviour.StickingInFrontOfPlayer);
+                    }
                 }
             }
             else
@@ -153,6 +175,7 @@ namespace LethalWorkingConditions.MonoBehaviours
             {
                 return;
             }
+
             if (timeSinceNewRandPos > 0.7f)
             {
                 timeSinceNewRandPos = 0;
@@ -171,6 +194,11 @@ namespace LethalWorkingConditions.MonoBehaviours
             }
         }
 
+        void PrepareScream()
+        {
+            StartCoroutine((IEnumerator)LethalScreamAttack());
+        }
+
         IEnumerator SwingAttack()
         {
             SwitchToBehaviourClientRpc((int)LGBehaviour.HeadSwingAttackInProgress);
@@ -184,12 +212,29 @@ namespace LethalWorkingConditions.MonoBehaviours
             DoAnimationClientRpc("swingAttack");
             yield return new WaitForSeconds(0.24f);
             SwingAttackHitClientRpc();
+
             // In case the player has already gone away, we just yield break (basically same as return, but for IEnumerator)
             if (currentBehaviourStateIndex != (int)LGBehaviour.HeadSwingAttackInProgress)
             {
                 yield break;
             }
+
             SwitchToBehaviourClientRpc((int)LGBehaviour.StickingInFrontOfPlayer);
+        }
+
+        IEnumerable LethalScreamAttack()
+        {
+            SwitchToBehaviourClientRpc((int)LGBehaviour.LethalScream);
+
+            DoAnimationClientRpc("lethalScream");
+
+            yield return new WaitForSeconds(4f);
+
+            LethalScreamAttackClientRpc();
+
+            if (currentBehaviourStateIndex != (int)LGBehaviour.LethalScream) yield break;
+
+            SwitchToBehaviourClientRpc((int)LGBehaviour.SearchingForPlayer);
         }
 
         public override void OnCollideWithPlayer(Collider other)
@@ -240,7 +285,9 @@ namespace LethalWorkingConditions.MonoBehaviours
         {
             logger.LogInfo("SwingAttackHitClientRPC");
             int playerLayer = 1 << 3; // This can be found from the game's Asset Ripper output in Unity
+
             Collider[] hitColliders = Physics.OverlapBox(attackArea.position, attackArea.localScale, Quaternion.identity, playerLayer);
+
             if (hitColliders.Length > 0)
             {
                 foreach (var player in hitColliders)
@@ -256,9 +303,29 @@ namespace LethalWorkingConditions.MonoBehaviours
             }
         }
 
+        [ClientRpc]
+        private void LethalScreamAttackClientRpc()
+        {
+            logger.LogInfo("LethalScreamAttackClientRpc");
 
+            int playerLayer = 1 << 3; // This can be found from the game's Asset Ripper output in Unity
 
+            Collider[] hitColliders = Physics.OverlapBox(attackArea.position, attackArea.localScale, Quaternion.identity, playerLayer);
 
-
+            if (hitColliders.Length > 0)
+            {
+                foreach (var player in hitColliders)
+                {
+                    PlayerControllerB playerControllerB = MeetsStandardPlayerCollisionConditions(player);
+                    if (playerControllerB != null)
+                    {
+                        logger.LogInfo("Lethal scream attack player!");
+                        timeSinceHittingLocalPlayer = 0f;
+                        playerControllerB.DamagePlayer(5);
+                        playerControllerB.IncreaseFearLevelOverTime(10, 10);
+                    }
+                }
+            }
+        }
     }
 }
