@@ -9,7 +9,7 @@ namespace LethalWorkingConditions.Helpers
 {
     internal class LWCLogger
     {
-        public static ManualLogSource pluginMls = null;
+        public static ManualLogSource mls = null;
 
         public readonly string source;
 
@@ -20,25 +20,25 @@ namespace LethalWorkingConditions.Helpers
 
         public static void Init()
         {
-            pluginMls = BepInEx.Logging.Logger.CreateLogSource(LethalWorkingConditions.modGUID);
+            mls = BepInEx.Logging.Logger.CreateLogSource(LethalWorkingConditions.modGUID);
         }
 
         public void LogInfo(string message)
         {
-            if (pluginMls == null) return;
-            pluginMls.LogInfo($"[{source}] {message}");
+            if (mls == null) return;
+            mls.LogInfo($"[{source}] {message}");
         }
 
         public void LogWarning(string message) 
         {
-            if (pluginMls == null) return;
-            pluginMls.LogWarning($"[{source}] {message}");
+            if (mls == null) return;
+            mls.LogWarning($"[{source}] {message}");
         }
 
         public void LogError(string message)
         {
-            if (pluginMls == null) return;
-            pluginMls.LogError($"[{source}] {message}");
+            if (mls == null) return;
+            mls.LogError($"[{source}] {message}");
         }
     }
 }
