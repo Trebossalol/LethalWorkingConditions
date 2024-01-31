@@ -29,7 +29,6 @@ namespace LethalWorkingConditions.Classes
             get { return RoundManagerBPatch.currentLevel.OutsideEnemies;  }
         }
 
-        // has some weird error
         public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation = EnemySpawnLocation.Auto)
         {
             if (!RoundManagerBPatch.isHost)
