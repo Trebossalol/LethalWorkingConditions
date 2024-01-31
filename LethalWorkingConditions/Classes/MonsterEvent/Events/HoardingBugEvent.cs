@@ -20,7 +20,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
 
         protected override void On_LoadNewLevel()
         {
-            EnemySpawner.SpawnEnemy(hoardingBugEnemy, initialSpawnAmount, true);
+            EnemySpawner.SpawnEnemy(hoardingBugEnemy, initialSpawnAmount);
         }
 
         protected override void On_AdvanceHourAndSpawnNewBatchOfEnemies()
@@ -28,7 +28,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
             int amount = 2 * multiplier;
             multiplier *= 3;
 
-            EnemySpawner.SpawnEnemy(hoardingBugEnemy, amount, true);
+            EnemySpawner.SpawnEnemy(hoardingBugEnemy, amount);
 
             IssueNotification($"Spawned {amount} of {hoardingBugEnemy.enemyType.enemyName}");
         }

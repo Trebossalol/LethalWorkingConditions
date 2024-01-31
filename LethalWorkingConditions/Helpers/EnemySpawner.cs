@@ -31,7 +31,7 @@ namespace LethalWorkingConditions.Classes
         }
 
         // has some weird error
-        public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation)
+        public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation = EnemySpawnLocation.Auto)
         {
             if (!RoundManagerBPatch.isHost)
             {
