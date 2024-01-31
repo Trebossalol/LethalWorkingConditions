@@ -14,12 +14,13 @@ The company said they wanna improve the working conditions for their employees. 
     - Increases the can volume of spray paints
 
 - Chat commands
-    - Spawn enemies `/spawn <enemy_name> [amount]` (host only)
+    - Spawn enemies `/spawn <enemy_name> [amount] [inside|outside]` (host only)
 
 ## Work in progress
 
 - Playing small games on the terminal - win or die
 - Random monster events which will make the game much harder
+- Very soon there will be a new dangerous creature living on the moons.. do you really want to know which creature it is?
 
 ## Installation
 This is the recommended way to install BepInEx on the game.
