@@ -19,7 +19,6 @@ namespace LethalWorkingConditions.Classes
     {
         private static LWCLogger logger = new LWCLogger("EnemySpawner");
 
-        // May needs fix because needs to be reinitalized once level changes
         public static List<SpawnableEnemyWithRarity> EnemiesInside
         {
             get { return RoundManagerBPatch.currentLevel.Enemies; }
@@ -43,20 +42,20 @@ namespace LethalWorkingConditions.Classes
             {
                 case EnemySpawnLocation.Auto:
                     bool isInside = FindEnemy(EnemiesInside, enemy.enemyType.enemyName) != null;
-                    if (isInside) return SpawnEnemyInside(enemy, amount, spawnLocation);
-                    return SpawnEnemyOutside(enemy, amount, spawnLocation);
+                    if (isInside) return SpawnEnemyAtRandomVent(enemy, amount);
+                    return SpawnEnemyAtRandomOutsidePosition(enemy, amount);
 
                 case EnemySpawnLocation.Inside:
-                    return SpawnEnemyInside(enemy, amount, spawnLocation);
+                    return SpawnEnemyAtRandomVent(enemy, amount);
 
                 case EnemySpawnLocation.Outside:
-                    return SpawnEnemyOutside(enemy, amount, spawnLocation);
+                    return SpawnEnemyAtRandomOutsidePosition(enemy, amount);
             }
 
             return false;
         }
 
-        private static bool SpawnEnemyInside(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation)
+        private static bool SpawnEnemyAtRandomVent(SpawnableEnemyWithRarity enemy, int amount)
         {
             try
             {
@@ -87,7 +86,7 @@ namespace LethalWorkingConditions.Classes
             return true;
         }
 
-        private static bool SpawnEnemyOutside(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation)
+        private static bool SpawnEnemyAtRandomOutsidePosition(SpawnableEnemyWithRarity enemy, int amount)
         {
             try
             {
@@ -116,7 +115,7 @@ namespace LethalWorkingConditions.Classes
 
         public static SpawnableEnemyWithRarity FindEnemy(List<SpawnableEnemyWithRarity> list, string search)
         {
-            SpawnableEnemyWithRarity enemy = list.Find(e => e.enemyType.enemyName.ToLower().Contains(search.ToLower()));
+            var enemy = list.Find(e => e.enemyType.enemyName.ToLower().Contains(search.ToLower()));
             return enemy;
         }
     }
