@@ -11,6 +11,12 @@ namespace LethalWorkingConditions
     {
         public readonly string Name = "LethalWorkingConditions";
 
+
+        // PlayerController
+        public static readonly bool PlayerControllerUnlimitedSprintDefault = false;
+        public static ConfigEntry<bool> PlayerControllerUnlimitedSprint;
+
+
         // Chat command stuff
         public static readonly string TerminalCommandPrefixDefault = "/";
         public static ConfigEntry<string> TerminalCommandPrefix;
@@ -44,6 +50,13 @@ namespace LethalWorkingConditions
                 "MonsterEventsEnabled",
                 MonsterEventsEnabledDefault,
                 "If enabled, monster events can occure"
+            );
+
+            PlayerControllerUnlimitedSprint = cfg.Bind(
+                Name,
+                "PlayerControllerUnlimitedSpring",
+                PlayerControllerUnlimitedSprintDefault,
+                "If enabled, your PlayerController will have unlimited sprint"
             );
         }
     }
