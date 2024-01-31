@@ -43,13 +43,5 @@ namespace LethalWorkingConditions.Patches
 
             //MonsterEventManager.activeEvent?.Bind_On_LoadNewLevel();
         }
-
-
-        /*[HarmonyPatch("Start")]
-        [HarmonyPrefix]
-        static void AddScrapValueMultiplier(ref float ___scrapValueMultiplier)
-        {
-            ___scrapValueMultiplier = 1.1f;
-        }*/
     }
 }

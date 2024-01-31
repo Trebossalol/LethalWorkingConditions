@@ -12,14 +12,12 @@ namespace LethalWorkingConditions.MonoBehaviours
 
     public class LethalGigaAI : EnemyAI
     {
-        #pragma warning disable 0649
         public Transform turnCompass;
 
         public Transform attackArea;
 
         public AISearchRoutine scoutingSearchRoutine;
 
-        #pragma warning restore 0649
         float timeSinceHittingLocalPlayer;
 
         float timeSinceNewRandPos;
@@ -143,7 +141,7 @@ namespace LethalWorkingConditions.MonoBehaviours
 
                     if (rng >= 5)
                     {
-                        logger.LogInfo("");
+                        logger.LogInfo("SwitchBehaviour to Screaming");
                         StopSearch(routine);
                         SwitchToBehaviourClientRpc((int)LGBehaviour.LethalScream);
                     }
@@ -276,8 +274,8 @@ namespace LethalWorkingConditions.MonoBehaviours
         [ClientRpc]
         public void DoAnimationClientRpc(string animationName)
         {
-            logger.LogInfo($"Animation: {animationName}");
-            creatureAnimator.SetTrigger(animationName);
+            logger.LogInfo($"Animation (not yet implemented): {animationName}");
+            //creatureAnimator.SetTrigger(animationName);
         }
 
         [ClientRpc]
