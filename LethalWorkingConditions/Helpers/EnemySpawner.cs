@@ -58,12 +58,14 @@ namespace LethalWorkingConditions.Classes
         {
             try
             {
-                Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
-                                            .floorNode.position;
+              
                 int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
 
                 for (int i = 0; i < amount; i++)
                 {
+
+                    Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
+                                          .floorNode.position;
 
                     float yRot = RoundManagerBPatch.currentRound.allEnemyVents[i].floorNode.eulerAngles.y;
 
