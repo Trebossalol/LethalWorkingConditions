@@ -13,20 +13,20 @@ namespace LethalWorkingConditions
 
 
         // PlayerController
-        private static readonly bool PlayerControllerUnlimitedSprintDefault = false;
+        public static readonly bool PlayerControllerUnlimitedSprintDefault = false;
         public static ConfigEntry<bool> PlayerControllerUnlimitedSprint;
 
 
         // Chat command stuff
-        private static readonly string TerminalCommandPrefixDefault = "/";
+        public static readonly string TerminalCommandPrefixDefault = "/";
         public static ConfigEntry<string> TerminalCommandPrefix;
 
-        private static readonly bool TerminalCommandDisableChatDefault = false;
+        public static readonly bool TerminalCommandDisableChatDefault = false;
         public static ConfigEntry<bool> TerminalCommandDisableChat;
 
 
         // Monster event stuff
-        private static readonly bool MonsterEventsEnabledDefault = true;
+        public static readonly bool MonsterEventsEnabledDefault = true;
         public static ConfigEntry<bool> MonsterEventsEnabled;
     
         public LWCConfig(ConfigFile cfg)
