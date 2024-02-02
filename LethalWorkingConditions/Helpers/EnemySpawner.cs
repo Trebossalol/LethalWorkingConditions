@@ -61,7 +61,7 @@ namespace LethalWorkingConditions.Classes
               
                 int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
 
-                for (int i = 0; i < amount; i++)
+                for (int i = 0; i < amount -1; i++)
                 {
 
                     Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
