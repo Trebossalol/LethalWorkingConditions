@@ -26,7 +26,7 @@ namespace LethalWorkingConditions.Classes
 
         public static List<SpawnableEnemyWithRarity> EnemiesOutside
         {
-            get { return RoundManagerBPatch.currentLevel.OutsideEnemies;  }
+            get { return RoundManagerBPatch.currentLevel.OutsideEnemies; }
         }
 
         public static bool SpawnEnemy(SpawnableEnemyWithRarity enemy, int amount, EnemySpawnLocation spawnLocation = EnemySpawnLocation.Auto)
@@ -37,47 +37,67 @@ namespace LethalWorkingConditions.Classes
                 return false;
             }
 
-            if (inside)
+            switch (spawnLocation)
             {
-                try
-                {
-                    Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
-                                                .floorNode.position;
-                    int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
+                case EnemySpawnLocation.Auto:
+                    bool isInside = FindEnemy(EnemiesInside, enemy.enemyType.enemyName) != null;
+                    if (isInside) return SpawnEnemyAtRandomVent(enemy, amount);
+                    return SpawnEnemyAtRandomOutsidePosition(enemy, amount);
 
-                    for (int i = 0; i < amount; i++)
-                    {
+                case EnemySpawnLocation.Inside:
+                    return SpawnEnemyAtRandomVent(enemy, amount);
+
+                case EnemySpawnLocation.Outside:
+                    return SpawnEnemyAtRandomOutsidePosition(enemy, amount);
+            }
+
+            return false;
+        }
+
+        private static bool SpawnEnemyAtRandomVent(SpawnableEnemyWithRarity enemy, int amount)
+        {
+            try
+            {
+                Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
+                                            .floorNode.position;
+                int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
+
+                for (int i = 0; i < amount; i++)
+                {
 
                     float yRot = RoundManagerBPatch.currentRound.allEnemyVents[i].floorNode.eulerAngles.y;
 
-                        RoundManagerBPatch
-                            .currentRound
-                            .SpawnEnemyOnServer(
-                                spawnPosition, 
-                                yRot,
-                                RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy)
-                            );
-                    }
+                    RoundManagerBPatch
+                        .currentRound
+                        .SpawnEnemyOnServer(
+                            spawnPosition,
+                            yRot,
+                            RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy)
+                        );
                 }
-                catch (Exception ex)
-                {
-                    logger.LogError("Failed to spawn enemies: " + ex.ToString());
-                    return false;
-                }
-            } 
-            else
+            }
+            catch (Exception ex)
             {
-               try
-               {
-                    for (int i = 0; i < amount; i++)
-                    {
-                        GameObject obj = UnityEngine.Object.Instantiate(
-                            RoundManagerBPatch.currentLevel
-                                .OutsideEnemies[RoundManagerBPatch.currentLevel.OutsideEnemies.IndexOf(enemy)]
-                                .enemyType.enemyPrefab,
-                            GameObject.FindGameObjectsWithTag("OutsideAINode")
-                                [UnityEngine.Random.Range(0, GameObject.FindGameObjectsWithTag("OutsideAINode").Length - 1)].transform.position,
-                            Quaternion.Euler(Vector3.zero));
+                logger.LogError("Failed to spawn enemies: " + ex.ToString());
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool SpawnEnemyAtRandomOutsidePosition(SpawnableEnemyWithRarity enemy, int amount)
+        {
+            try
+            {
+                for (int i = 0; i < amount; i++)
+                {
+                    GameObject obj = UnityEngine.Object.Instantiate(
+                    RoundManagerBPatch.currentLevel
+                            .OutsideEnemies[RoundManagerBPatch.currentLevel.OutsideEnemies.IndexOf(enemy)]
+                            .enemyType.enemyPrefab,
+                        GameObject.FindGameObjectsWithTag("OutsideAINode")
+                            [UnityEngine.Random.Range(0, GameObject.FindGameObjectsWithTag("OutsideAINode").Length - 1)].transform.position,
+                        Quaternion.Euler(Vector3.zero));
 
                     obj.gameObject.GetComponentInChildren<NetworkObject>()
                         .Spawn(destroyWithScene: true);
