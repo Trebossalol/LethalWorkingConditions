@@ -32,7 +32,7 @@ namespace LethalWorkingConditions
                 )
              );
 
-            if (MainAssetsBundle != null) logger.LogInfo("AssetBundle loaded");
+            if (MainAssetsBundle != null) logger.LogInfo($"AssetBundle {mainAssetBundleName} loaded successfully");
             else logger.LogError($"Could not load AssetBundle from {mainAssetBundleName}");
         }
 
@@ -52,7 +52,7 @@ namespace LethalWorkingConditions
             /// Dev only: Unlimited sprint
             /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));
 
-            logger.LogInfo("Patches loaded");
+            logger.LogInfo("Done loading patches");
         }
 
         private static void LoadEnemies()
@@ -63,6 +63,7 @@ namespace LethalWorkingConditions
         private static void LoadEnemy(string name, int rarity, LevelTypes levelType, SpawnType spawnType)
         {
             logger.LogInfo($"Loading enemy {name}");
+
             EnemyType enemy = MainAssetsBundle.LoadAsset<EnemyType>(name);
             var terminalNode = MainAssetsBundle.LoadAsset<TerminalNode>($"{name}TN");
             var terminalKeyword = MainAssetsBundle.LoadAsset<TerminalKeyword>($"{name}TK");
@@ -108,7 +109,7 @@ namespace LethalWorkingConditions
                 }
             }
 
-            logger.LogInfo("Mod content loaded");
+            logger.LogInfo("Content loaded");
         }
     }
 }

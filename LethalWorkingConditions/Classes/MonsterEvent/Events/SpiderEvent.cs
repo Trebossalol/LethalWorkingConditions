@@ -20,7 +20,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
 
         protected override void On_LoadNewLevel()
         {
-            EnemySpawner.SpawnEnemy(spiderEnemy, initialSpawnAmount, true);
+            EnemySpawner.SpawnEnemy(spiderEnemy, initialSpawnAmount);
         }
 
         protected override void On_AdvanceHourAndSpawnNewBatchOfEnemies()
@@ -28,7 +28,7 @@ namespace LethalWorkingConditions.Classes.MonsterEvent.Events
             int amount = 2 * multiplier;
             multiplier *= 2;
 
-            EnemySpawner.SpawnEnemy(spiderEnemy, amount, true);
+            EnemySpawner.SpawnEnemy(spiderEnemy, amount);
 
             IssueNotification($"Spawned {amount} of {spiderEnemy.enemyType.enemyName}");
         }

@@ -45,7 +45,7 @@ namespace LethalWorkingConditions.Patches
         {
             PlayerControllerB localPlayer = GameNetworkManager.Instance.localPlayerController;
 
-            // bro idk
+            // player state
             localPlayer.isTypingChat = false;
 
             // Reset chat input
