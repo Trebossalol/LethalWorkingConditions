@@ -1,7 +1,6 @@
 ﻿using LethalLib;
 using LethalLib.Modules;
 using LethalWorkingConditions.Helpers;
-using LethalWorkingConditions.MonoBehaviours;
 using LethalWorkingConditions.Patches;
 using System.Collections.Generic;
 using System.IO;
