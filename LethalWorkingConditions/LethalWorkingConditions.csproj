@@ -121,8 +121,6 @@
     <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Helpers\LWCLogger.cs" />
-    <Compile Include="Behaviours\LethalGigaAI.cs" />
-    <Compile Include="Behaviours\PartyMonkeyAI.cs" />
     <Compile Include="Patches\BridgeTriggerBPatch.cs" />
     <Compile Include="Patches\HUDManagerBPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />
@@ -155,6 +153,9 @@
   <ItemGroup>
     <None Remove="mbundle" />
     <None Include="todo.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviours\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
