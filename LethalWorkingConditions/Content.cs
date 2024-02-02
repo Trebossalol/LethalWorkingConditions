@@ -6,7 +6,6 @@ using LethalWorkingConditions.Patches;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Unity.Netcode.Components;
 using UnityEngine;
 using static LethalLib.Modules.Enemies;
 using static LethalLib.Modules.Levels;
@@ -64,7 +63,6 @@ namespace LethalWorkingConditions
         private static void LoadEnemy(string name, int rarity, LevelTypes levelType, SpawnType spawnType)
         {
             logger.LogInfo($"Loading enemy {name}");
-
             EnemyType enemy = MainAssetsBundle.LoadAsset<EnemyType>(name);
             var terminalNode = MainAssetsBundle.LoadAsset<TerminalNode>($"{name}TN");
             var terminalKeyword = MainAssetsBundle.LoadAsset<TerminalKeyword>($"{name}TK");

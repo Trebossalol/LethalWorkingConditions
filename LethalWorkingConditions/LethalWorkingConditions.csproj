@@ -118,8 +118,8 @@
     <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Helpers\LWCLogger.cs" />
-    <Compile Include="MonoBehaviours\LethalGigaAI.cs" />
-    <Compile Include="MonoBehaviours\PartyMonkeyAI.cs" />
+    <Compile Include="Behaviours\LethalGigaAI.cs" />
+    <Compile Include="Behaviours\PartyMonkeyAI.cs" />
     <Compile Include="Patches\BridgeTriggerBPatch.cs" />
     <Compile Include="Patches\HUDManagerBPatch.cs" />
     <Compile Include="Patches\PlayerControllerBPatch.cs" />
