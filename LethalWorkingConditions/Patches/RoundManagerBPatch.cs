@@ -1,5 +1,6 @@
-﻿using HarmonyLib;
-using LethalWorkingConditions.Classes.MonsterEvent;
+﻿using System.Collections.Generic;
+using HarmonyLib;
+using UnityEngine;
 
 namespace LethalWorkingConditions.Patches
 {
@@ -19,9 +20,6 @@ namespace LethalWorkingConditions.Patches
             ___mapSizeMultiplier = 1.5f;
 
             isHost = RoundManager.Instance.NetworkManager.IsHost;
-
-            // Not done yet
-            // MonsterEventManager.GenerateNewEvent();
         }
 
 
@@ -31,8 +29,6 @@ namespace LethalWorkingConditions.Patches
         {
             currentLevel = ___currentLevel;
             currentLevelVents = ___allEnemyVents;
-
-            //MonsterEventManager.activeEvent?.Bind_AdvanceHourAndSpawnNewBatchOfEnemies();
         }
 
         [HarmonyPatch("LoadNewLevel")]
@@ -40,8 +36,6 @@ namespace LethalWorkingConditions.Patches
         static void RoundManagerBPatch_LoadNewLevel_Prefix(ref SelectableLevel newLevel)
         {
             currentRound = RoundManager.Instance;
-
-            //MonsterEventManager.activeEvent?.Bind_On_LoadNewLevel();
         }
     }
 }
