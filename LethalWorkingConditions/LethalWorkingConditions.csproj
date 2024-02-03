@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\CrawlerAI.cs" />
     <Compile Include="Classes\ChatCommand\ChatCommand.cs" />
     <Compile Include="Classes\ChatCommand\Commands\SpawnCommand.cs" />
     <Compile Include="Classes\FlickerLightsBClass.cs" />
@@ -154,8 +155,6 @@
     <None Remove="mbundle" />
     <None Include="todo.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Behaviours\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
