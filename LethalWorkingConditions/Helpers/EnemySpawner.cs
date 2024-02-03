@@ -91,7 +91,7 @@ namespace LethalWorkingConditions.Classes
         {
             try
             {
-                for (int i = 0; i < amount; i++)
+                for (int i = 0; i < amount -1; i++)
                 {
                     GameObject obj = UnityEngine.Object.Instantiate(
                     RoundManagerBPatch.currentLevel
