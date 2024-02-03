@@ -1,6 +1,5 @@
-﻿using GameNetcodeStuff;
-using System;
-using System.Collections;
+﻿using System.Collections;
+using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -843,11 +842,6 @@ namespace LethalWorkingConditions.Behaviours
                 ((CrawlerAI)target).EatPlayerBodyClientRpc(value);
                 target.__rpc_exec_stage = __RpcExecStage.None;
             }
-        }
-
-        protected internal override string __getTypeName()
-        {
-            return "CrawlerAI";
         }
     }
 

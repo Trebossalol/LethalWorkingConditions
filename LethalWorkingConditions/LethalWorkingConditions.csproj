@@ -114,13 +114,6 @@
     <Compile Include="Behaviours\CrawlerAI.cs" />
     <Compile Include="Classes\ChatCommand\ChatCommand.cs" />
     <Compile Include="Classes\ChatCommand\Commands\SpawnCommand.cs" />
-    <Compile Include="Classes\FlickerLightsBClass.cs" />
-    <Compile Include="Classes\LightAnomaly\BaseLightAnomaly.cs" />
-    <Compile Include="Classes\LightAnomaly\UncommonLightAnomaly.cs" />
-    <Compile Include="Classes\MonsterEvent\Events\HoardingBugEvent.cs" />
-    <Compile Include="Classes\MonsterEvent\Events\SpiderEvent.cs" />
-    <Compile Include="Classes\MonsterEvent\MonsterEvent.cs" />
-    <Compile Include="Classes\MonsterEvent\MonsterEventManager.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Helpers\EnemySpawner.cs" />
     <Compile Include="Content.cs" />

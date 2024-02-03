@@ -9,7 +9,7 @@ namespace LethalWorkingConditions.Patches
     {
         private static int bloodCount;
         public static int DropBlood_BloodPoolsAmount = 4;
-        public static int DropBlood_ScaleAmount = 2;
+        public static float DropBlood_ScaleAmount = 4f;
 
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
