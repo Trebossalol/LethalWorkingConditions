@@ -22,7 +22,6 @@ namespace LethalWorkingConditions.Patches
             isHost = RoundManager.Instance.NetworkManager.IsHost;
         }
 
-
         [HarmonyPatch("AdvanceHourAndSpawnNewBatchOfEnemies")]
         [HarmonyPrefix]
         static void RoundManagerBPatch_AdvanceHourAndSpawnNewBatchOfEnemies_Prefix(ref EnemyVent[] ___allEnemyVents, ref SelectableLevel ___currentLevel)

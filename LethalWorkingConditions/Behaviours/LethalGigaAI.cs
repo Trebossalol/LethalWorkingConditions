@@ -1,8 +1,6 @@
-﻿using System;
-namespace LethalWorkingConditions.Behaviours
+﻿namespace LethalWorkingConditions.Behaviours
 {
-	public enum LethalGigaAI
-	{
-	}
+    public class LethalGigaAI : CrawlerAI
+    {
+    }
 }
-

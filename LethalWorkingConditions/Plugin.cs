@@ -8,15 +8,12 @@ using UnityEngine;
 namespace LethalWorkingConditions
 {
     [BepInPlugin(modGUID, modName, modVersion)]
-    [BepInDependency(RuntimeNetcodeRPCValidator.MyPluginInfo.PLUGIN_GUID, RuntimeNetcodeRPCValidator.MyPluginInfo.PLUGIN_VERSION)]
     [BepInDependency(LethalLib.Plugin.ModGUID)]
     public class LethalWorkingConditions : BaseUnityPlugin
     {
         public const string modGUID = "Trebossa.LethalWorkingConditions";
         public const string modName = "Lethal Working Conditions";
         public const string modVersion = "0.1.4";
-
-        private NetcodeValidator netcodeValidator;
 
         public static readonly Harmony harmony = new Harmony(modGUID);
         
@@ -29,9 +26,6 @@ namespace LethalWorkingConditions
         void Awake()
         {
             if (Instance == null) Instance = this;
-
-            netcodeValidator = new NetcodeValidator(modGUID);
-            netcodeValidator.PatchAll();
 
             Config = new LWCConfig(base.Config);
 

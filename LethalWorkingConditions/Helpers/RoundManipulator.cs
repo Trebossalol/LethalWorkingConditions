@@ -6,15 +6,13 @@ namespace LethalWorkingConditions.Helpers
 {
 	public class RoundManipulator
 	{
-		private static FlashlightItem[] GetFlashLightItems()
-		{
-            FlashlightItem[] flashlights = UnityEngine.Object.FindObjectsOfType<FlashlightItem>();
-			return flashlights;
-        }
+		private static LWCLogger logger = new LWCLogger("RoundManipulator");
 
-		public static IEnumerator FlickerPoweredLights(float offsetMultiplier = 1f)
+		public static IEnumerator FlickerPoweredLights(int amountMultiplier = 1, float offsetMultiplier = 1f)
 		{
-			var flashlights = GetFlashLightItems();
+			logger.LogInfo("Flickering powered lights");
+
+			var flashlights = ObjectFinder.FindObjectsOfType<FlashlightItem>();
 
 			foreach (var flashlight in flashlights)
 			{
@@ -31,7 +29,7 @@ namespace LethalWorkingConditions.Helpers
 			if (lights.Count <= 0) yield break;
 
 			int loopCount = 0;
-			int b = 4;
+			int b = 4 * amountMultiplier;
 			float delayMultiplier = 1f;
 
 			while (b > 0)
@@ -50,15 +48,27 @@ namespace LethalWorkingConditions.Helpers
 
 			yield return new WaitForSeconds(0.3f);
 
-            var flashlights2 = GetFlashLightItems();
+            var flashlights2 = ObjectFinder.FindObjectsOfType<FlashlightItem>();
 
-			foreach (var flashlight in flashlights2)
+            foreach (var flashlight in flashlights2)
 			{
 				flashlight.flashlightInterferenceLevel = 0;
 			}
 
 			FlashlightItem.globalFlashlightInterferenceLevel = 0;
         }
+	
+		public static void EnrageNearbyTurrets(Transform obj, float range = 20f)
+		{
+			var turrets = ObjectFinder.FindObjectsInRadius<Turret>(obj, range);
+
+			foreach (var turret in turrets)
+			{
+				turret.EnterBerserkModeServerRpc(-1);
+			}
+
+			logger.LogInfo($"Enraged {turrets.Count} turrets");
+		}
 	}
 }
 
