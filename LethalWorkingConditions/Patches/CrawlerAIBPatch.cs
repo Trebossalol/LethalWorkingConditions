@@ -26,7 +26,7 @@ namespace LethalWorkingConditions.Behaviours
             
             if (name.Contains("giga"))
             {
-                RoundManipulator.EnrageNearbyTurrets(__instance.transform);
+                RoundManipulator.EnrageNearbyTurrets(__instance.transform, 30f);
                 __instance.StartCoroutine(RoundManipulator.FlickerPoweredLights(1, 2));
             }
         }
@@ -43,7 +43,7 @@ namespace LethalWorkingConditions.Behaviours
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    playerWhoHit.DropBlood();
+                    playerWhoHit.DropBlood(default, true, true);
                 }
             }
         }
