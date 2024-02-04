@@ -18,7 +18,6 @@
   <Target Name="_MinVerClean" BeforeTargets="Clean" DependsOnTargets="MinVer" Condition="'$(GeneratePackageOnBuild)' == 'true'" />
 
   <Target Name="MinVer" BeforeTargets="BeforeCompile;GetAssemblyVersion;CoreCompile" Condition="'$(DesignTimeBuild)' != 'true' AND '$(MinVerSkip)' != 'true'">
-    <Error Condition="'$(UsingMicrosoftNETSdk)' != 'true'" Code="MINVER0001" Text="MinVer only works in SDK-style projects." />
     <Message Importance="$(MinVerDetailed)" Text="MinVer: [input] MSBuildProjectDirectory=$(MSBuildProjectDirectory)" />
     <Message Importance="$(MinVerDetailed)" Text="MinVer: [input] MinVerAutoIncrement=$(MinVerAutoIncrement)" />
     <Message Importance="$(MinVerDetailed)" Text="MinVer: [input] MinVerBuildMetadata=$(MinVerBuildMetadata)" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using LethalWorkingConditions.Patches;
 using UnityEngine;
 
 namespace LethalWorkingConditions.Helpers
