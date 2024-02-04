@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using LethalWorkingConditions.Patches;
 using UnityEngine;
 
 namespace LethalWorkingConditions.Helpers
@@ -58,9 +59,9 @@ namespace LethalWorkingConditions.Helpers
 			FlashlightItem.globalFlashlightInterferenceLevel = 0;
         }
 	
-		public static void EnrageNearbyTurrets(Transform obj, float range = 20f)
+		public static void EnrageNearbyTurrets(Transform source, float range = 20f)
 		{
-			var turrets = ObjectFinder.FindObjectsInRadius<Turret>(obj, range);
+			var turrets = ObjectFinder.FindObjectsInRadius<Turret>(source, range);
 
 			foreach (var turret in turrets)
 			{

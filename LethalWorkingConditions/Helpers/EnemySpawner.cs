@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace LethalWorkingConditions.Classes
 {
@@ -61,11 +60,12 @@ namespace LethalWorkingConditions.Classes
               
                 int enemyNumber = RoundManagerBPatch.currentLevel.Enemies.IndexOf(enemy);
 
-                for (int i = 0; i < amount -1; i++)
+                for (int i = 0; i < amount; i++)
                 {
+                    int randomVentIndex = UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length);
 
-                    Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents[UnityEngine.Random.Range(0, RoundManagerBPatch.currentRound.allEnemyVents.Length)]
-                                          .floorNode.position;
+                    Vector3 spawnPosition = RoundManagerBPatch.currentRound.allEnemyVents
+                                            [randomVentIndex].floorNode.position;
 
                     float yRot = RoundManagerBPatch.currentRound.allEnemyVents[i].floorNode.eulerAngles.y;
 
@@ -94,7 +94,8 @@ namespace LethalWorkingConditions.Classes
                 for (int i = 0; i < amount -1; i++)
                 {
                     GameObject obj = UnityEngine.Object.Instantiate(
-                    RoundManagerBPatch.currentLevel
+
+                        RoundManagerBPatch.currentLevel
                             .OutsideEnemies[RoundManagerBPatch.currentLevel.OutsideEnemies.IndexOf(enemy)]
                             .enemyType.enemyPrefab,
                         GameObject.FindGameObjectsWithTag("OutsideAINode")

@@ -77,7 +77,7 @@ namespace LethalWorkingConditions.Classes.ChatCommand.Commands
             // Parse spawn location
             if (parameters.Length > 2)
             {
-                string param = parameters[2];
+                string param = parameters[2].ToLower();
                 if (param.StartsWith("in"))
                 {
                     spawnLocation = EnemySpawnLocation.Inside;
