@@ -10,9 +10,9 @@ namespace LethalWorkingConditions
     [BepInDependency(LethalLib.Plugin.ModGUID)]
     public class LethalWorkingConditions : BaseUnityPlugin
     {
-        public const string modGUID = "Trebossa.LethalWorkingConditions";
-        public const string modName = "Lethal Working Conditions";
-        public const string modVersion = "0.1.6";
+        public const string modGUID = "Trebossa.LethalChat";
+        public const string modName = "Lethal Chat";
+        public const string modVersion = "0.1.5-C";
 
         public static readonly Harmony harmony = new Harmony(modGUID);
         

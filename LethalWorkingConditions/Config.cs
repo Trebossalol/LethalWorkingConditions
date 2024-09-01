@@ -9,8 +9,7 @@ namespace LethalWorkingConditions
 {
     public class LWCConfig
     {
-        public readonly string Name = "LethalWorkingConditions";
-
+        public readonly string Name = "LethalChat";
 
         // PlayerController
         public static readonly bool PlayerControllerUnlimitedSprintDefault = false;
@@ -18,7 +17,7 @@ namespace LethalWorkingConditions
 
 
         // Chat command stuff
-        public static readonly string TerminalCommandPrefixDefault = "/";
+        public static readonly string TerminalCommandPrefixDefault = "----";
         public static ConfigEntry<string> TerminalCommandPrefix;
 
         public static readonly bool TerminalCommandDisableChatDefault = false;
@@ -26,38 +25,12 @@ namespace LethalWorkingConditions
 
 
         // Monster event stuff
-        public static readonly bool MonsterEventsEnabledDefault = true;
+        public static readonly bool MonsterEventsEnabledDefault = false;
         public static ConfigEntry<bool> MonsterEventsEnabled;
     
         public LWCConfig(ConfigFile cfg)
         {
-            TerminalCommandPrefix = cfg.Bind(
-                Name,
-                "TerminalCommandPrefix",
-                TerminalCommandPrefixDefault,
-                "Prefix for chat commands"
-            );
-
-            TerminalCommandDisableChat = cfg.Bind(
-                Name,
-                "TerminalCommandDisableChat",
-                TerminalCommandDisableChatDefault,
-                "If enabled, your chat messages will not be sent to other clients"
-            );
-
-            MonsterEventsEnabled = cfg.Bind(
-                Name,
-                "MonsterEventsEnabled",
-                MonsterEventsEnabledDefault,
-                "If enabled, monster events can occure"
-            );
-
-            PlayerControllerUnlimitedSprint = cfg.Bind(
-                Name,
-                "PlayerControllerUnlimitedSpring",
-                PlayerControllerUnlimitedSprintDefault,
-                "If enabled, your PlayerController will have unlimited sprint"
-            );
+            
         }
     }
 }

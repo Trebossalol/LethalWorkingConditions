@@ -42,21 +42,12 @@ namespace LethalWorkingConditions
             // HUDManagerBPatch depends on RoundManagerBPatch
             LethalWorkingConditions.harmony.PatchAll(typeof(HUDManagerBPatch));
 
-
-            // Load other patches and game modifications
-            LethalWorkingConditions.harmony.PatchAll(typeof(BridgeTriggerBPatch));
-            LethalWorkingConditions.harmony.PatchAll(typeof(SprayPaintItemBPatch));
-            LethalWorkingConditions.harmony.PatchAll(typeof(TimeOfDayBPatch));
-
-            /// Dev only: Unlimited sprint
-            /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));
-
             logger.LogInfo("Done loading patches");
         }
 
         private static void LoadEnemies()
         {
-            LoadEnemy("LethalGiga", 100, LevelTypes.All, SpawnType.Default);
+            //LoadEnemy("LethalGiga", 100, LevelTypes.All, SpawnType.Default);
         }
 
         private static void LoadEnemy(string name, int rarity, LevelTypes levelType, SpawnType spawnType)
@@ -82,9 +73,9 @@ namespace LethalWorkingConditions
 
             LoadPatches();
 
-            TryLoadAssets();
+            //TryLoadAssets();
 
-            LoadEnemies();
+            //LoadEnemies();
 
             // loop through prefabs
             foreach (var prefabSet in Prefabs)
