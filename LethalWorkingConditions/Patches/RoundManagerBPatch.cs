@@ -17,7 +17,7 @@ namespace LethalWorkingConditions.Patches
         static void RoundManagerBPatch_Start_Prefix(ref float ___mapSizeMultiplier)
         {
             // Make map bigger
-            ___mapSizeMultiplier = 1.5f;
+            ___mapSizeMultiplier = 2f;
 
             isHost = RoundManager.Instance.NetworkManager.IsHost;
         }

@@ -111,9 +111,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\EnemyAI.cs" />
-    <Compile Include="Behaviours\LethalGigaAI.cs" />
-    <Compile Include="Patches\CrawlerAIBPatch.cs" />
     <Compile Include="Classes\ChatCommand\ChatCommand.cs" />
     <Compile Include="Classes\ChatCommand\Commands\SpawnCommand.cs" />
     <Compile Include="Config.cs" />

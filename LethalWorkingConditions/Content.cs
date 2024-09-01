@@ -1,6 +1,5 @@
 ﻿using LethalLib;
 using LethalLib.Modules;
-using LethalWorkingConditions.Behaviours;
 using LethalWorkingConditions.Helpers;
 using LethalWorkingConditions.Patches;
 using System.Collections.Generic;
@@ -48,7 +47,6 @@ namespace LethalWorkingConditions
             LethalWorkingConditions.harmony.PatchAll(typeof(BridgeTriggerBPatch));
             LethalWorkingConditions.harmony.PatchAll(typeof(SprayPaintItemBPatch));
             LethalWorkingConditions.harmony.PatchAll(typeof(TimeOfDayBPatch));
-            LethalWorkingConditions.harmony.PatchAll(typeof(CrawlerAIBPatch));
 
             /// Dev only: Unlimited sprint
             /// LethalWorkingConditions.harmony.PatchAll(typeof(PlayerControllerBPatch));

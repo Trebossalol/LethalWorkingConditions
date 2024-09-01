@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using HarmonyLib;
 using LethalWorkingConditions.Helpers;
-using RuntimeNetcodeRPCValidator;
 using System.Reflection;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace LethalWorkingConditions
     {
         public const string modGUID = "Trebossa.LethalWorkingConditions";
         public const string modName = "Lethal Working Conditions";
-        public const string modVersion = "0.1.4";
+        public const string modVersion = "0.1.6";
 
         public static readonly Harmony harmony = new Harmony(modGUID);
         
