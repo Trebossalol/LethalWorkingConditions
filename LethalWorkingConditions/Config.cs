@@ -23,6 +23,8 @@ namespace LethalWorkingConditions
         public static readonly bool TerminalCommandDisableChatDefault = false;
         public static ConfigEntry<bool> TerminalCommandDisableChat;
 
+        public static readonly bool AllowSpawnCommandIfNotHostDefault = false;
+        public static ConfigEntry<bool> AllowSpawnCommandIfNotHost;
 
         // Monster event stuff
         public static readonly bool MonsterEventsEnabledDefault = false;
@@ -30,7 +32,12 @@ namespace LethalWorkingConditions
     
         public LWCConfig(ConfigFile cfg)
         {
-            
-        }
+            AllowSpawnCommandIfNotHost = cfg.Bind(
+                Name,
+                "AllowSpawnCommandIfNotHost",
+                AllowSpawnCommandIfNotHostDefault,
+                "If enabled, you can use the spawn command even when you are not the host"
+            );
+       }
     }
 }
